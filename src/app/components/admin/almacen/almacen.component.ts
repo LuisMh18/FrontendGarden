@@ -3,13 +3,13 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 //los (..) es para salir de una carpeta, salimos de la carpeta login, luego de la carpeta components y entramos en la carpeta services donde tenemos nuestros servicios
 import { AlmacenService } from '../../../services/admin/almacen/almacen.service'; 
 
-import { PaginacionService } from '../../../services/paginacion/paginacion.service'; 
+import { CommonService } from '../../../services/common/common.service'; ;
 
 @Component({
   selector: 'app-almacen',
   templateUrl: './almacen.component.html',
   styleUrls: ['./almacen.component.css'],
-  providers: [AlmacenService, PaginacionService]
+  providers: [AlmacenService, CommonService]
 })
 export class AlmacenComponent implements OnInit {
 
@@ -34,11 +34,11 @@ export class AlmacenComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _almacenService: AlmacenService,
-    private _paginacionService: PaginacionService,
+    private _commonService: CommonService,
     
   ) {
     this.titulo = 'Almacen';
-    //this.productos = _paginacionService.getArticulos();
+    //this.productos = _commonService.getArticulos();
     
   }
 
@@ -90,12 +90,14 @@ export class AlmacenComponent implements OnInit {
     this.getData(this.token, this.page, this.dataForm);
   }
 
+  
+
 
   getData(token, page, data) {
     this._almacenService.getAlmacen(token, page, data).subscribe(
       response => {
         this.dataobjetc = response.data.data;
-        this.paginacion = this._paginacionService.paginacion(response);
+        this.paginacion = this._commonService.paginacion(response);
         this.pages = this.paginacion[0].pages;
         this.pageCurrent = this.paginacion[0].pageCurrent;
         this.pagePrev = this.paginacion[0].pagePrev;

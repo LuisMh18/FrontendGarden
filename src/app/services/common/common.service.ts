@@ -3,8 +3,12 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import "rxjs/add/operator/map";
 import { Observable } from 'rxjs/Observable';
 
+//notificaciones
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications';
+
 @Injectable()
-export class PaginacionService {
+export class CommonService {
   public pageCurrent;
   public pagePrev;
   public pages;
@@ -12,8 +16,89 @@ export class PaginacionService {
   public currentPage;
   public pageNext;
   public pNext;
+  public tipo;
 
-  constructor() { }
+  constructor(
+    private notif: NotificationsService,//notificaciones
+  ) { }
+
+  //Tipos de mensajes
+  //error	
+  //info
+  //Warning	
+  //success
+  msj(tipo, msj){
+
+    switch(tipo) {
+      case 'success':
+      this.notif.success(
+        'Success',
+         msj,
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 50,
+        }
+      );
+      break;
+      case 'warn': 
+      this.notif.warn(
+        'Warning',
+        msj,
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 50
+        }
+      );
+      break;
+      case 'info': 
+      this.notif.info(
+        'Info',
+        msj,
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 50
+        }
+      ); 
+      break;
+      case 'error': 
+      this.notif.error(
+        'Error',
+        msj,
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 50
+        }
+      ); 
+      break;
+      case 'alert': 
+      this.notif.alert(
+        'Alert',
+        msj,
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 50
+        }
+      );
+      break;
+    }
+
+
+  }
 
 
   paginacion(response) {

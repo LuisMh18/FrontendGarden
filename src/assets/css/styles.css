@@ -294,3 +294,17 @@
 .theme-settings {
     display: none!important;
 }
+
+
+.font_notif{
+  font-size:14px;
+}
+
+
+.button_search{
+  margin-top: 23px;
+  }
+  
+  .page-content-wrap, .page-container{
+      background:#f5f5f5!important;
+  }

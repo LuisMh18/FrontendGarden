@@ -4,11 +4,13 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 //los (..) es para salir de una carpeta, saimos de la carpeta login, luego de la carpeta components y entramos en la carpeta services donde tenemos nuestros servicios
 import { LoginService } from '../../services/login/login.service'; 
 
+import { CommonService } from '../../services/common/common.service'; ;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [LoginService]
+  providers: [LoginService, CommonService]
 })
 export class LoginComponent implements OnInit {
   public titulo: string;
@@ -18,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _loginService: LoginService
+    private _loginService: LoginService,
+    private _commonService: CommonService,
   ) {
     this.titulo = 'Inicia Sesión';
    }
@@ -54,16 +57,14 @@ export class LoginComponent implements OnInit {
 
           for (let err of data) {
             console.log("validate: " + err[0]);
-            //this._notif('error', `<div class="font_notif">${err[0]}</div>`);
+            this._commonService.msj('error', `<div class="font_notif">${err[0]}</div>`);
           }
 
         } else {
           if (response.error == true) {
-            //this._notif('error', response.message);
-            console.log(response.message);
+            this._commonService.msj('error', response.message);
           } else {
-            //this._notif('success', 'Te has logueado correctamente!');
-            console.log('Te has logueado correctamente!');
+            this._commonService.msj('success', 'Te has logueado correctamente!');
             //console.log(response);
             this.token = response.token;
             this.identity = response.data;
