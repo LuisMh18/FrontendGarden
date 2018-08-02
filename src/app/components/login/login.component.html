@@ -1,0 +1,52 @@
+<div id="login" class="login-box animated fadeInDown">
+    <div class="login-logo"></div>
+    <div class="login-body">
+        <div class="login-title">
+            <strong>Bienvenido</strong>, {{ titulo }}</div>
+
+
+        <form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="input-group formUserName has-feedback">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </span>
+                        <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email" required placeholder="Email">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="input-group formPassword has-feedback">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                        </span>
+                        <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password" required placeholder="Contraseña">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6">
+                    <a href="#" class="btn btn-link btn-block">¿Olvidaste tu contraseña?</a>
+                </div>
+                <div class="col-md-6">
+                    <input type="submit" id="acceder" value="Acceder" class="btn btn-info btn-block">
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+    <div class="login-footer">
+        <div class="pull-left">
+            &copy; 2018 GardenCentral
+        </div>
+        <div class="pull-right">
+            <a href="#">About</a> |
+            <a href="#">Privacy</a> |
+            <a href="#">Contact Us</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+cliente: angel@live.com pass: del 1 al 8
+
+agente: adri@hotmail.com  pass: del 1 al 8
+
+admin: admin@outlook.es   pass:admin99
