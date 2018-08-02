@@ -18,10 +18,8 @@
   </div>
   <!-- END PAGE TITLE -->
 
-  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" #cd></p-confirmDialog>
-  <button type="button" pButton icon="pi pi-times" label="No" (click)="confirm()"></button>
-
-
+  <p-confirmDialog></p-confirmDialog>
+  
 
 <!-- PAGE CONTENT WRAPPER -->
 <div class="page-content-wrap">
@@ -118,7 +116,7 @@
                       </button>
                     </td>
                     <td>
-                      <button class="btn btn-danger btn-rounded btn-sm" (click)="delete(almacen.id)">
+                      <button class="btn btn-danger btn-rounded btn-sm" (click)="delete(almacen.id, almacen.clave)">
                         <span class="fa fa-times"></span>
                       </button>
                     </td>

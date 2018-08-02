@@ -308,3 +308,10 @@
   .page-content-wrap, .page-container{
       background:#f5f5f5!important;
   }
+
+
+  /* Botones de confirmacion */
+  .ui-widget-header .ui-button, .ui-widget-content .ui-button, .ui-widget.ui-button, .ui-button {
+    border: 1px solid #1caf9a!important;
+    background: #1caf9a!important;
+  }

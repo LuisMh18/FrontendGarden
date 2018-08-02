@@ -24,5 +24,10 @@ export class AlmacenService {
 
   }
 
+  deleteAlmacen(token, id){
+    return this._http.delete(this.url+'admin/almacen/'+id+'?token='+token)
+                       .map(res => res.json());
+  }
+
 
 }

@@ -71,14 +71,6 @@ export class AlmacenComponent implements OnInit {
     this.getAlmacen();
   }
 
-  confirm() {
-    this.confirmationService.confirm({
-        message: 'Are you sure that you want to perform this action?',
-        accept: () => {
-            //Actual logic to perform a confirmation
-        }
-    });
-}
 
   getAlmacen(){
     if (this.token != null) {
@@ -88,6 +80,7 @@ export class AlmacenComponent implements OnInit {
 
   nPage(page) {
     if (page != 'null') {
+      this.page = page;
       this.getData(this.token, page, this.dataForm);
     }
 
@@ -95,7 +88,7 @@ export class AlmacenComponent implements OnInit {
 
   //search
   onSearch() {
-    this.getData(this.token, this.page, this.dataForm);
+    this.getData(this.token, this.page = null, this.dataForm);
   }
 
   //Mostrar numero de paginas
@@ -150,6 +143,7 @@ export class AlmacenComponent implements OnInit {
   //Refrescar tabla
   refresh() {
     this.numberPage = 10;
+    this.page = null;
     this.dataForm = {
       search: "",
       order: "desc",
@@ -161,8 +155,40 @@ export class AlmacenComponent implements OnInit {
   }
 
   //Eliminar
-  delete(id){
-    console.log("Id: " + id);
+  delete(id, clave){
+    this.confirmationService.confirm({
+      message: '¿Estás seguro de eliminar el almacen ' +clave+' ?',
+      header: 'Eliminar Almacen',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+          this.confirmdelete(id);
+      },
+      reject: () => {
+          //console.log("no");
+      }
+    });
+  }
+
+  confirmdelete(id){
+    this.getAlmacen();
+      this._almacenService.deleteAlmacen(this.token, id).subscribe(
+        response => {
+          this._commonService.msj('success', response.message);
+          this.getAlmacen();
+        }, error => {
+          if (error.statusText == 'Unauthorized') {
+            //this._loginService.token_expired();
+          } else {
+            console.log('Error 500');
+          console.log(<any>error);
+          setInterval(() => {
+            location.reload();
+          }, 1000);  
+  
+          }
+        }
+      );
+
   }
 
   //Agregar
