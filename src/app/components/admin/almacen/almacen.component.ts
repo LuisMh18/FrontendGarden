@@ -3,13 +3,16 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 //los (..) es para salir de una carpeta, salimos de la carpeta login, luego de la carpeta components y entramos en la carpeta services donde tenemos nuestros servicios
 import { AlmacenService } from '../../../services/admin/almacen/almacen.service'; 
 
-import { CommonService } from '../../../services/common/common.service'; ;
+import { CommonService } from '../../../services/common/common.service'; 
+
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
 @Component({
   selector: 'app-almacen',
   templateUrl: './almacen.component.html',
   styleUrls: ['./almacen.component.css'],
-  providers: [AlmacenService, CommonService]
+  providers: [AlmacenService, CommonService, ConfirmationService]
 })
 export class AlmacenComponent implements OnInit {
 
@@ -35,6 +38,7 @@ export class AlmacenComponent implements OnInit {
     private _router: Router,
     private _almacenService: AlmacenService,
     private _commonService: CommonService,
+    private confirmationService: ConfirmationService
     
   ) {
     this.titulo = 'Almacen';
@@ -52,6 +56,8 @@ export class AlmacenComponent implements OnInit {
       this._router.navigate(['clientes']);
     }
 
+    
+
     this.page = null;//para el numero de pagina de la paginacion
     this.numberPage = 10; //select para seleccionar el numero de registros de ver por pagina 
 
@@ -64,6 +70,15 @@ export class AlmacenComponent implements OnInit {
 
     this.getAlmacen();
   }
+
+  confirm() {
+    this.confirmationService.confirm({
+        message: 'Are you sure that you want to perform this action?',
+        accept: () => {
+            //Actual logic to perform a confirmation
+        }
+    });
+}
 
   getAlmacen(){
     if (this.token != null) {

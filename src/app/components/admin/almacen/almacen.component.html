@@ -17,7 +17,11 @@
       <span class="fa fa-arrow-circle-o-left"></span> {{ titulo }}</h2>
   </div>
   <!-- END PAGE TITLE -->
-  
+
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" #cd></p-confirmDialog>
+  <button type="button" pButton icon="pi pi-times" label="No" (click)="confirm()"></button>
+
+
 
 <!-- PAGE CONTENT WRAPPER -->
 <div class="page-content-wrap">

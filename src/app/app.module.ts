@@ -17,6 +17,10 @@ import { AgentesComponent } from './components/agentes/agentes.component';
 import { ClientesComponent } from './components/front/clientes/clientes.component';
 import { AlmacenComponent } from './components/admin/almacen/almacen.component';
 
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+
+
 
 @NgModule({
   declarations: [
@@ -33,11 +37,14 @@ import { AlmacenComponent } from './components/admin/almacen/almacen.component';
     HttpModule,
     routing,
     SimpleNotificationsModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ConfirmDialogModule,
   ],
   providers: [
-    appRoutingProviders
+    appRoutingProviders,
+    ConfirmationService
   ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
