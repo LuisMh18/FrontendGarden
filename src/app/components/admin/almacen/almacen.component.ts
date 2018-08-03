@@ -5,8 +5,12 @@ import { AlmacenService } from '../../../services/admin/almacen/almacen.service'
 
 import { CommonService } from '../../../services/common/common.service'; 
 
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
+//confirm
 import {ConfirmationService} from 'primeng/api';
+
+//forms
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-almacen',
@@ -33,18 +37,24 @@ export class AlmacenComponent implements OnInit {
   public numberPage;
   //public productos;
   public paginacion;
+  public form: FormGroup;
+  public statusForm;
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private _almacenService: AlmacenService,
     private _commonService: CommonService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private formBuilder: FormBuilder
     
   ) {
     this.titulo = 'Almacen';
     //this.productos = _commonService.getArticulos();
     
   }
+
+  //dialog
+  display: boolean = false;
 
   ngOnInit() {
     console.log('Componente de almacen cargado');
@@ -60,6 +70,7 @@ export class AlmacenComponent implements OnInit {
 
     this.page = null;//para el numero de pagina de la paginacion
     this.numberPage = 10; //select para seleccionar el numero de registros de ver por pagina 
+    this.statusForm = false; //estatus del formulario
 
     this.dataForm = {
       search: "",
@@ -67,6 +78,24 @@ export class AlmacenComponent implements OnInit {
       estatus:2,
       per_page: this.numberPage ,
     }
+
+
+    this.form = this.formBuilder.group({
+      clave: [
+        '', 
+       [ 
+          Validators.required,
+          Validators.minLength(3)
+      ]
+      ],
+      nombre: [
+        '', 
+        [ 
+          Validators.minLength(3), 
+          Validators.required  ]
+      ],
+
+    });
 
     this.getAlmacen();
   }
@@ -157,8 +186,8 @@ export class AlmacenComponent implements OnInit {
   //Eliminar
   delete(id, clave){
     this.confirmationService.confirm({
-      message: '¿Estás seguro de eliminar el almacen ' +clave+' ?',
-      header: 'Eliminar Almacen',
+      message: '¿Estás seguro de eliminar el almacén ' +clave+' ?',
+      header: 'Eliminar Almacén',
       icon: 'pi pi-info-circle',
       accept: () => {
           this.confirmdelete(id);
@@ -192,9 +221,73 @@ export class AlmacenComponent implements OnInit {
 
   }
 
-  //Agregar
-  add(){
-    console.log("Add");
+
+  showDialog(){
+    this.display = true; 
+  }
+
+  changeStatusForm(status){
+    this.statusForm = !status;
+  }
+
+  //Agregar almacen
+  add(formValue: any){
+    let data = {
+      clave:formValue.clave,
+      nombre:formValue.nombre,
+      estatus:(this.statusForm == true) ? 1 : 0,
+    }
+    if(this.form.controls.clave.status == 'INVALID'){
+      if(this.form.controls.clave.errors.required){
+        this._commonService.msj('error', 'El campo Clave es requerido.');
+      }
+
+      if(this.form.controls.clave.errors.minlength){
+        this._commonService.msj('error', 'El campo Clave debe de tener al menos 3 caracteres.');
+      }
+    }
+
+    if(this.form.controls.nombre.status == 'INVALID'){
+      if(this.form.controls.nombre.errors.required){
+        this._commonService.msj('error', 'El nombre Nombre es requerido.');
+      }
+
+      if(this.form.controls.nombre.errors.minlength){
+        this._commonService.msj('error', 'El campo Nombre debe de tener al menos 3 caracteres.');
+      }
+    }
+
+    if(this.form.valid) {
+      this._almacenService.addAlmacen(this.token, data).subscribe(
+        response => {
+          console.log(response);
+          if (response.error == 'validate') {
+            let data = Object.values(response.errors);
+            console.log(data);
+            for (let err of data) {
+              console.log("validate: " + err[0]);
+              this._commonService.msj('error', `<div class="font_notif">${err[0]}</div>`);
+            }
+  
+          } else if (response.error.statusText == 'Unauthorized') {
+            this._commonService.token_expired();
+          } else {
+              this.display = false; 
+              this.form.reset();
+              this.getAlmacen();
+              this.statusForm = false;
+              this._commonService.msj('success', response.message);
+          }
+
+        }, error => {
+          console.log(<any>error);
+        }
+      );
+
+
+
+    }
+    
   }
 
   

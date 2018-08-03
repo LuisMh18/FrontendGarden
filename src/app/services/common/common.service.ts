@@ -110,7 +110,9 @@ export class CommonService {
     this.token = null;
     this.identity = null;
     this.msj('warn', '<div class="font_notif">Tu sesión expiro, ingresa otra vez!</div>');
-    window.location.href = '/login'; //redirigimos al  login
+    setInterval(() => {
+      window.location.href = '/login';
+    }, 2000);
   }
 
 

@@ -311,7 +311,45 @@
 
 
   /* Botones de confirmacion */
-  .ui-widget-header .ui-button, .ui-widget-content .ui-button, .ui-widget.ui-button, .ui-button {
-    border: 1px solid #1caf9a!important;
-    background: #1caf9a!important;
-  }
+
+  /*estilos para los modales*/
+  .ui-widget-content {
+     border: 0px!important; 
+}
+
+.ui-corner-top {
+  background: #1b1e24!important;
+  color: #fff!important;
+}
+
+.ui-dialog .ui-dialog-titlebar-icon {
+  background: #fff;
+  margin-left: 5px;
+}
+
+p-footer{
+  text-align: right;
+    width: 100%;
+    float: right;
+}
+
+p-footer button:first-child{
+  background: #1caf9a!important;
+  border: 1px solid #1caf9a!important;
+}
+
+p-footer button:last-child{
+  background:#E04B4A!important;
+  border: 1px solid #E04B4A!important;
+}
+
+
+.ui-widget-header .ui-button:first-child, .ui-widget-content .ui-button:first-child, .ui-widget.ui-button:first-child, .ui-button:first-child{
+  background: #1caf9a!important;
+  border: 1px solid #1caf9a!important;
+}
+
+.ui-widget-header .ui-button:last-child, .ui-widget-content .ui-button:last-child, .ui-widget.ui-button:last-child, .ui-button:last-child{
+  background:#E04B4A!important;
+  border: 1px solid #E04B4A!important;
+}

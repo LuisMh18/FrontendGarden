@@ -29,5 +29,16 @@ export class AlmacenService {
                        .map(res => res.json());
   }
 
+  addAlmacen(token, data):Observable<any>{
+    let params = JSON.stringify(data);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+      return this._http.post(this.url+'admin/almacen?token='+token, params, options)
+                       .map(res => res.json());
+  }
+
+
+
 
 }

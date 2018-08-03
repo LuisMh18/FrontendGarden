@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 //notificaciones
@@ -19,6 +19,11 @@ import { AlmacenComponent } from './components/admin/almacen/almacen.component';
 
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+
+import {DialogModule} from 'primeng/dialog';
+
+import { UiSwitchModule } from 'ngx-toggle-switch';
+
 
 
 
@@ -39,6 +44,9 @@ import {ConfirmationService} from 'primeng/api';
     SimpleNotificationsModule.forRoot(),
     BrowserAnimationsModule,
     ConfirmDialogModule,
+    DialogModule,
+    ReactiveFormsModule,
+    UiSwitchModule,
   ],
   providers: [
     appRoutingProviders,
