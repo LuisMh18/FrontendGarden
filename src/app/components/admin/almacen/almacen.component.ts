@@ -114,7 +114,7 @@ export class AlmacenComponent implements OnInit {
         this.currentPage = this.paginacion[0].currentPage;
       }, error => {
         if (error.statusText == 'Unauthorized') {
-          //this._loginService.token_expired();
+          this._commonService.token_expired();
         } else {
           console.log('Error 500');
           console.log(<any>error);
@@ -126,10 +126,10 @@ export class AlmacenComponent implements OnInit {
            this.getReservations();
          }, 5000);*/
 
-
-          setInterval(() => {
+         this._commonService.msj('error', 'Erro interno del servidor');
+          /*setInterval(() => {
             location.reload();
-          }, 1000);
+          }, 1000);*/
 
 
 
@@ -177,13 +177,14 @@ export class AlmacenComponent implements OnInit {
           this.getAlmacen();
         }, error => {
           if (error.statusText == 'Unauthorized') {
-            //this._loginService.token_expired();
+            this._commonService.token_expired();
           } else {
             console.log('Error 500');
           console.log(<any>error);
-          setInterval(() => {
+          this._commonService.msj('error', 'Erro interno del servidor');
+         /* setInterval(() => {
             location.reload();
-          }, 1000);  
+          }, 1000); */ 
   
           }
         }

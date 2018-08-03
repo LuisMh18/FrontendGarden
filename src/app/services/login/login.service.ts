@@ -31,16 +31,7 @@ export class LoginService {
       .map(res => res.json());
   }
 
-  //metodo si el token expira, limpiamos el localStorage y redireccionamos al login
-  token_expired() {
-    localStorage.setItem('sesion', 'token_expired');//sesion
-    localStorage.removeItem('token');
-    localStorage.removeItem('identity');
-    this.token = null;
-    this.identity = null;
-    window.location.href = '/login'; //redirigimos al  login
-  }
-
+  
   //obtener datos del usuario
   getIdentity() {
     /* Y ahora, al recuperarlo, convertimos el string nuevamente en un objeto con JSON.parse */

@@ -17,6 +17,8 @@ export class CommonService {
   public pageNext;
   public pNext;
   public tipo;
+  public identity;//para guardar los datos del usuario logueado
+  public token;
 
   constructor(
     private notif: NotificationsService,//notificaciones
@@ -98,6 +100,17 @@ export class CommonService {
     }
 
 
+  }
+
+  //metodo si el token expira, limpiamos el localStorage y redireccionamos al login
+  token_expired() {
+    localStorage.setItem('sesion', 'token_expired');//sesion
+    localStorage.removeItem('token');
+    localStorage.removeItem('identity');
+    this.token = null;
+    this.identity = null;
+    this.msj('warn', '<div class="font_notif">Tu sesión expiro, ingresa otra vez!</div>');
+    window.location.href = '/login'; //redirigimos al  login
   }
 
 

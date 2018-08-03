@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './services/login/login.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { CommonService } from './services/common/common.service'; 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [LoginService]
+  providers: [LoginService, CommonService]
 })
 export class AppComponent {
   title = 'Garden Central';
@@ -19,6 +20,7 @@ export class AppComponent {
     private _loginService: LoginService,
     private _route: ActivatedRoute,
     private _router: Router,
+    private _commonService: CommonService,
   ) {
     this.identity = this._loginService.getIdentity();
     this.token = this._loginService.getToken();
@@ -39,11 +41,6 @@ export class AppComponent {
     }
 
     this.nav_menu = (this.token != null && this.identity.rol_id === 3) ? 'page-content' : 'page-content2';
-
-    //filtros
-    localStorage.setItem("order", JSON.stringify(0));
-    localStorage.setItem("estatus", JSON.stringify(2));//estatud por defecto 2 para traer todos
-    localStorage.setItem("search", JSON.stringify(0));
     
   }
 
@@ -64,7 +61,7 @@ export class AppComponent {
         window.location.href = '/login'; //redirigimos al  login
       }, error => {
         if (error.statusText == 'Unauthorized') { //si la sesion ah expirado
-          this._loginService.token_expired();
+          this._commonService.token_expired();
         } else {
           console.log(<any>error);
         }
