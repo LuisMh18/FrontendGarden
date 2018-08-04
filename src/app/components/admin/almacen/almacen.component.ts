@@ -39,6 +39,9 @@ export class AlmacenComponent implements OnInit {
   public paginacion;
   public form: FormGroup;
   public statusForm;
+  public titleForm;
+  public btnForm;
+  public almacen;
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -66,7 +69,12 @@ export class AlmacenComponent implements OnInit {
       this._router.navigate(['clientes']);
     }
 
-    
+    this.almacen = {
+     id:"",
+     clave:"",
+     nombre:"",
+     estatus:0 
+    }
 
     this.page = null;//para el numero de pagina de la paginacion
     this.numberPage = 10; //select para seleccionar el numero de registros de ver por pagina 
@@ -80,6 +88,7 @@ export class AlmacenComponent implements OnInit {
     }
 
 
+    //reglas de validacion
     this.form = this.formBuilder.group({
       clave: [
         '', 
@@ -128,10 +137,8 @@ export class AlmacenComponent implements OnInit {
   }
 
   
-
-
   getData(token, page, data) {
-    this._almacenService.getAlmacen(token, page, data).subscribe(
+    this._almacenService.getData(token, page, data).subscribe(
       response => {
         this.dataobjetc = response.data.data;
         this.paginacion = this._commonService.paginacion(response);
@@ -200,7 +207,7 @@ export class AlmacenComponent implements OnInit {
 
   confirmdelete(id){
     this.getAlmacen();
-      this._almacenService.deleteAlmacen(this.token, id).subscribe(
+      this._almacenService.delete(this.token, id).subscribe(
         response => {
           this._commonService.msj('success', response.message);
           this.getAlmacen();
@@ -223,47 +230,43 @@ export class AlmacenComponent implements OnInit {
 
 
   showDialog(){
+    this.form.reset();
+    this.statusForm = false;
     this.display = true; 
+    this.titleForm = "Agregar Almacén";
+    this.btnForm = "Agregar";
   }
 
   changeStatusForm(status){
     this.statusForm = !status;
   }
 
-  //Agregar almacen
-  add(formValue: any){
-    let data = {
+  //add and update
+  submit(formValue: any, action){
+
+    if(action === 'Agregar'){
+      this.add(formValue);
+    } else {
+      this.update(formValue);
+    }
+    
+  }
+
+  //Agregar
+  add(formValue){
+    this.almacen = {
       clave:formValue.clave,
       nombre:formValue.nombre,
       estatus:(this.statusForm == true) ? 1 : 0,
     }
-    if(this.form.controls.clave.status == 'INVALID'){
-      if(this.form.controls.clave.errors.required){
-        this._commonService.msj('error', 'El campo Clave es requerido.');
-      }
-
-      if(this.form.controls.clave.errors.minlength){
-        this._commonService.msj('error', 'El campo Clave debe de tener al menos 3 caracteres.');
-      }
-    }
-
-    if(this.form.controls.nombre.status == 'INVALID'){
-      if(this.form.controls.nombre.errors.required){
-        this._commonService.msj('error', 'El nombre Nombre es requerido.');
-      }
-
-      if(this.form.controls.nombre.errors.minlength){
-        this._commonService.msj('error', 'El campo Nombre debe de tener al menos 3 caracteres.');
-      }
-    }
+    
+    this.validate();
 
     if(this.form.valid) {
-      this._almacenService.addAlmacen(this.token, data).subscribe(
+      this._almacenService.add(this.token, this.almacen).subscribe(
         response => {
-          console.log(response);
           if (response.error == 'validate') {
             let data = Object.values(response.errors);
-            console.log(data);
             for (let err of data) {
               console.log("validate: " + err[0]);
               this._commonService.msj('error', `<div class="font_notif">${err[0]}</div>`);
@@ -287,14 +290,103 @@ export class AlmacenComponent implements OnInit {
 
 
     }
-    
   }
 
   
 
-  //Actualizar
-  update(id) {
-    console.log("Update: " + id);
+  //edit
+  edit(id) {
+    this.display = true; 
+    this.titleForm = "Editar Almacén";;
+    this.btnForm = "Actualizar";
+
+    this._almacenService.edit(this.token, id).subscribe(
+      response => {
+        this.almacen = {
+          id:response.data.id,
+          clave:response.data.clave,
+          nombre:response.data.nombre,
+          estatus:response.data.estatus 
+         }
+         this.statusForm = (response.data.estatus === 1) ? true : false;
+
+      }, error => {
+        if(error.statusText == 'Unauthorized'){
+          this._commonService.token_expired();
+        } else {
+          console.log(<any>error);
+        }
+      }
+    );
   }
+
+
+  update(formValue){
+
+    this.almacen = {
+      id:this.almacen.id,
+      clave:formValue.clave,
+      nombre:formValue.nombre,
+      estatus:(this.statusForm === true) ? 1 : 0,
+    }
+
+    this.validate();
+
+    if(this.form.valid) {
+      this._almacenService.update(this.token, this.almacen).subscribe(
+        response => {
+          if (response.error == 'validate') {
+            let data = Object.values(response.errors);
+            for (let err of data) {
+              console.log("validate: " + err[0]);
+              this._commonService.msj('error', `<div class="font_notif">${err[0]}</div>`);
+            }
+  
+          } else if (response.error == true){
+            this._commonService.msj('warn', response.message);
+          } else if (response.error.statusText == 'Unauthorized') {
+            this._commonService.token_expired();
+          } else {
+              this.display = false; 
+              this.form.reset();
+              this.getAlmacen();
+              this.statusForm = false;
+              this._commonService.msj('success', response.message);
+          }
+
+        }, error => {
+          console.log(<any>error);
+        }
+      );
+
+
+
+    }
+        
+  }
+
+  validate(){
+    if(this.form.controls.clave.status == 'INVALID'){
+      if(this.form.controls.clave.errors.required){
+        this._commonService.msj('error', 'El campo Clave es requerido.');
+      }
+
+      if(this.form.controls.clave.errors.minlength){
+        this._commonService.msj('error', 'El campo Clave debe de tener al menos 3 caracteres.');
+      }
+    }
+
+    if(this.form.controls.nombre.status == 'INVALID'){
+      if(this.form.controls.nombre.errors.required){
+        this._commonService.msj('error', 'El nombre Nombre es requerido.');
+      }
+
+      if(this.form.controls.nombre.errors.minlength){
+        this._commonService.msj('error', 'El campo Nombre debe de tener al menos 3 caracteres.');
+      }
+    }
+  }
+
+
 
 }

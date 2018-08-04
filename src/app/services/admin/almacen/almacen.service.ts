@@ -14,7 +14,7 @@ export class AlmacenService {
     this.url = GLOBAL.url;
   }
 
-  getAlmacen(token, page = null, dataform) {
+  getData(token, page = null, dataform) {
     let params = JSON.stringify(dataform);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -24,18 +24,35 @@ export class AlmacenService {
 
   }
 
-  deleteAlmacen(token, id){
+  delete(token, id){
     return this._http.delete(this.url+'admin/almacen/'+id+'?token='+token)
                        .map(res => res.json());
   }
 
-  addAlmacen(token, data):Observable<any>{
+  add(token, data):Observable<any>{
     let params = JSON.stringify(data);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
       return this._http.post(this.url+'admin/almacen?token='+token, params, options)
                        .map(res => res.json());
+  }
+
+
+  edit(token, id) {
+      return this._http.get(this.url+'admin/almacen/'+id+'?token='+token)
+                       .map(res => res.json());
+
+  }
+
+  update(token, data): Observable<any> {
+    let params = JSON.stringify(data);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+      return this._http.put(this.url+'admin/almacen/'+data.id+'?token='+token, params, options)
+                       .map(res => res.json());
+
   }
 
 
