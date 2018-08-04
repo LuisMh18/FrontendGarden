@@ -287,6 +287,10 @@
        width:200px;
   }
 
+  .info-paginacion{
+   text-align: center;
+  }
+
 
 }
 
@@ -352,4 +356,41 @@ p-footer button:last-child{
 .ui-widget-header .ui-button:last-child, .ui-widget-content .ui-button:last-child, .ui-widget.ui-button:last-child, .ui-button:last-child{
   background:#E04B4A!important;
   border: 1px solid #E04B4A!important;
+}
+
+.info-paginacion{
+  background: #F5F5F5;
+  border-bottom: 1px solid #E3E3E3;
+  padding: 2px 8px;
+}
+
+/*Hacer responsive el modal ---------------------------------------------*/
+@media(min-width:320px){
+  .responsive-modal{
+    width: 95%!important;
+  }
+}
+
+@media(min-width:620px){
+  .responsive-modal{
+    width: 80%!important;
+  }
+}
+
+@media(min-width:760px){
+  .responsive-modal{
+    width: 70%!important;
+  }
+}
+
+@media(min-width:1000px){
+  .responsive-modal{
+    width: 50%!important;
+  }
+}
+
+@media(min-width:1500px){
+  .responsive-modal{
+    width: 550px!important;
+  }
 }

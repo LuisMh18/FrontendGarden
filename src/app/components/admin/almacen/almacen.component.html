@@ -17,8 +17,8 @@
   </div>
   <!-- END PAGE TITLE -->
 
-  <p-dialog header="{{titleForm}}" [(visible)]="display" [modal]="true" [responsive]="true" [width]="550" [minWidth]="200" [minY]="70" 
-  [maximizable]="true">
+  <p-dialog header="{{titleForm}}" [(visible)]="display" [modal]="true" [responsive]="true" [minY]="70" 
+  [maximizable]="true" styleClass="responsive-modal">
     
     <form #updateForm="ngForm" [formGroup]="form" (ngSubmit)="submit(form.value, btnForm)" >
         <div [ngClass]="(form.controls.clave.errors && form.controls.clave.touched)?'form-group has-feedback has-error' :'form-group ' ">
@@ -196,6 +196,10 @@
                 Último
               </a>
             </div>
+          </div>
+
+          <div class="info-paginacion">
+            {{ infoPaginacion }}
           </div>
     
           

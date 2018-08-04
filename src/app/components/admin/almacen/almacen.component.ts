@@ -42,6 +42,7 @@ export class AlmacenComponent implements OnInit {
   public titleForm;
   public btnForm;
   public almacen;
+  public infoPaginacion;
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -140,6 +141,7 @@ export class AlmacenComponent implements OnInit {
   getData(token, page, data) {
     this._almacenService.getData(token, page, data).subscribe(
       response => {
+        this.infoPaginacion = `Mostrando registros del ${response.data.from} al ${response.data.to} de un total de ${response.data.total} registros`;
         this.dataobjetc = response.data.data;
         this.paginacion = this._commonService.paginacion(response);
         this.pages = this.paginacion[0].pages;
