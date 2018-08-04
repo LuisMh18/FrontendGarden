@@ -394,3 +394,74 @@ p-footer button:last-child{
     width: 550px!important;
   }
 }
+
+
+/*Panel exportar csv y pdf*/
+.export-data{
+  background:transparent!important;
+}
+
+.export-data li .button-panel-table{
+  display: block!important;
+    float: left!important;
+    width: 30px!important;
+    height: 30px!important;
+    text-align: center!important;
+    line-height: 28px!important;
+    color: #22262e!important;
+    border: 1px solid #BBB!important;
+    border-radius: 20%!important;
+    margin-left: 3px!important;
+    -webkit-transition: all 200ms ease!important;
+    transition: all 200ms ease!important;
+    background: transparent!important;
+    padding:0!important;
+}
+
+.export-data li .button-panel-table span{
+  color: #22262e!important;
+  line-height: 32px!important;
+  font-weight: 600!important;
+}
+
+.export-data li .button-panel-table:hover {
+  border-color: #999!important;
+  color: #1b1e24!important;
+  background: transparent!important;
+}
+
+.export-data li div .panel-body a{
+  height: 50px;
+  padding: 0!important;
+}
+.export-data li div .panel-body .pull-right{
+    background: #E5E5E5;
+    width: 80%;
+    border-left: 1px solid #E5E5E5;
+    height: 100%;
+}
+
+
+.export-data li div .panel-body a button{
+  width: 49%!important;
+  border: 0!important;
+  height: 100%!important;
+  font-size: 22px!important;
+  font-weight: 400!important;
+  color: #1b1e24!important;
+  background: #fff!important;
+  cursor:pointer!important;
+}
+
+.export-data li div .panel-body a button:hover{
+  color: #fff!important;
+  background: #1caf9a!important;
+}
+
+.export-data li div .panel-body a button:first-child{
+  border-right: 1px solid #fff!important;
+}
+
+.export-data li div .panel-footer{
+  height: 20px;
+}

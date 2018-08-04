@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 //notificaciones
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 
 @Injectable()
 export class CommonService {
@@ -22,7 +23,28 @@ export class CommonService {
 
   constructor(
     private notif: NotificationsService,//notificaciones
-  ) { }
+  ) {}
+
+  //exportar
+  exportdata(data, headers, file){
+    
+    var options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true, 
+      //showTitle: true,
+      useBom: true,
+      /*noDownload: true,*/
+      headers: [headers]
+    };
+
+    let f = new Date();
+    let filename = file+f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
+
+    new Angular5Csv(data, filename, options);
+
+  }
 
   //Tipos de mensajes
   //error	

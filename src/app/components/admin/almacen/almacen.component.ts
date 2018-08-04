@@ -12,6 +12,9 @@ import {ConfirmationService} from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
+//declare var jQuery:any;
+//declare var $:any;
+
 @Component({
   selector: 'app-almacen',
   templateUrl: './almacen.component.html',
@@ -43,6 +46,7 @@ export class AlmacenComponent implements OnInit {
   public btnForm;
   public almacen;
   public infoPaginacion;
+  public export;
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -70,6 +74,13 @@ export class AlmacenComponent implements OnInit {
       this._router.navigate(['clientes']);
     }
 
+    //$("a").attr("href", "javascript: void(0);" ); 
+    /*setTimeout(() => { 
+      $("a").removeAttr("href");
+   }, 1000);
+    $("a").attr("href", "javascript: void(0);" );
+    $("a").html("hola ---" ); */
+
     this.almacen = {
      id:"",
      clave:"",
@@ -80,6 +91,7 @@ export class AlmacenComponent implements OnInit {
     this.page = null;//para el numero de pagina de la paginacion
     this.numberPage = 10; //select para seleccionar el numero de registros de ver por pagina 
     this.statusForm = false; //estatus del formulario
+    this.export = false;
 
     this.dataForm = {
       search: "",
@@ -141,15 +153,20 @@ export class AlmacenComponent implements OnInit {
   getData(token, page, data) {
     this._almacenService.getData(token, page, data).subscribe(
       response => {
-        this.infoPaginacion = `Mostrando registros del ${response.data.from} al ${response.data.to} de un total de ${response.data.total} registros`;
-        this.dataobjetc = response.data.data;
-        this.paginacion = this._commonService.paginacion(response);
-        this.pages = this.paginacion[0].pages;
-        this.pageCurrent = this.paginacion[0].pageCurrent;
-        this.pagePrev = this.paginacion[0].pagePrev;
-        this.pNext = this.paginacion[0].pNext;
-        this.pageNext = this.paginacion[0].pageNext;
-        this.currentPage = this.paginacion[0].currentPage;
+        if(this.export === false){
+          this.infoPaginacion = `Mostrando registros del ${response.data.from} al ${response.data.to} de un total de ${response.data.total} registros`;
+          this.dataobjetc = response.data.data;
+          this.paginacion = this._commonService.paginacion(response);
+          this.pages = this.paginacion[0].pages;
+          this.pageCurrent = this.paginacion[0].pageCurrent;
+          this.pagePrev = this.paginacion[0].pagePrev;
+          this.pNext = this.paginacion[0].pNext;
+          this.pageNext = this.paginacion[0].pageNext;
+          this.currentPage = this.paginacion[0].currentPage;
+        } else {
+          this.exportdata(response.data.data);
+        }
+        
       }, error => {
         if (error.statusText == 'Unauthorized') {
           this._commonService.token_expired();
@@ -174,6 +191,21 @@ export class AlmacenComponent implements OnInit {
         }
       }
     );
+
+  }
+
+  exportdata(data){
+
+
+    if(data === undefined){
+      this.export = true;
+      this.getData(this.token, this.page = null, this.dataForm);
+    } else {
+
+      this._commonService.exportdata(data, ["Id", "Clave", "Nombre", "Estatus", "Fecha"], "Almacén_");
+      this.export = false;
+    }
+    
 
   }
 
