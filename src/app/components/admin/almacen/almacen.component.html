@@ -16,7 +16,6 @@
       <span class="fa fa-arrow-circle-o-left"></span> {{ titulo }}</h2>
   </div>
   <!-- END PAGE TITLE -->
-
   
   <!-- Modal -->
   <div class="modal fade" id="modal-export-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-keyboard="false" data-backdrop="static">
@@ -82,7 +81,8 @@
   <!-- START RESPONSIVE TABLES -->
   <div class="row">
       <div class="col-md-12">
-        <div class="panel panel-default">
+
+        <div class="panel panel-default "><!-- panel-refreshing -->
     
           <div class="panel-heading">
             <div class="row">
@@ -123,8 +123,8 @@
                     </button>
                   </li>
                   <li>
-                    <button (click)="refresh();" class="button-panel-table">
-                      <span class="fa fa-refresh"></span>
+                    <button (click)="refresh()" class="button-panel-table">
+                         <span class="fa fa-refresh"></span>
                     </button>
                   </li>
                   <li>
@@ -225,6 +225,8 @@
           <div class="info-paginacion">
             {{ infoPaginacion }}
           </div>
+
+          <div class="panel-refresh-layer2 {{loader}}" ><img src="assets/img/loaders/default.gif"></div>
     
           
         </div>

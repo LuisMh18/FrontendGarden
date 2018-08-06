@@ -47,6 +47,7 @@ export class AlmacenComponent implements OnInit {
   public almacen;
   public infoPaginacion;
   public export;
+  public loader;
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -92,6 +93,7 @@ export class AlmacenComponent implements OnInit {
     this.numberPage = 10; //select para seleccionar el numero de registros de ver por pagina 
     this.statusForm = false; //estatus del formulario
     this.export = false;
+    this.loader = '';
 
     this.dataForm = {
       search: "",
@@ -163,6 +165,7 @@ export class AlmacenComponent implements OnInit {
           this.pNext = this.paginacion[0].pNext;
           this.pageNext = this.paginacion[0].pageNext;
           this.currentPage = this.paginacion[0].currentPage;
+          this.loader = 'hidden';
         } else {
           this.confirmexportdata(response.data.data);
         }
@@ -236,6 +239,7 @@ export class AlmacenComponent implements OnInit {
 
   //Refrescar tabla
   refresh() {
+    this.loader = '';
     this.numberPage = 10;
     this.page = null;
     this.dataForm = {

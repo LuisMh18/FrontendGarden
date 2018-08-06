@@ -522,3 +522,25 @@ p-footer button:last-child{
 .btn-export:first-child{
     margin-bottom: 10px!important
 }
+
+.panel-refresh-layer2 {
+  width: 100%!important;
+    height: 100%!important;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      background: #FFF;
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+      z-index: 3;
+      font-size: 21px;
+}
+
+.panel-refresh-layer2 img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -16px;
+  margin-top: -16px;
+}
+
