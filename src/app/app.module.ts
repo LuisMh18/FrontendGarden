@@ -24,6 +24,8 @@ import {DialogModule} from 'primeng/dialog';
 
 import { UiSwitchModule } from 'ngx-toggle-switch';
 
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 
 
 
@@ -47,10 +49,11 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
     DialogModule,
     ReactiveFormsModule,
     UiSwitchModule,
+    ModalModule,
   ],
   providers: [
     appRoutingProviders,
-    ConfirmationService
+    ConfirmationService,
   ],
   
   bootstrap: [AppComponent]

@@ -27,6 +27,12 @@ export class CommonService {
 
   //exportar
   exportdata(data, headers, file){
+
+    //si no ha resultados
+    if(!data.length){
+      this.msj('warn', 'No se encontraron resultados!');
+      return false;
+    }
     
     var options = { 
       fieldSeparator: ',',

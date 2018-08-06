@@ -465,3 +465,60 @@ p-footer button:last-child{
 .export-data li div .panel-footer{
   height: 20px;
 }
+
+
+
+/*modal bootstrap*/
+.modal-content{
+  border-width: 0!important;
+  border-radius: 8px!important;
+}
+.modal-dialog{
+  z-index: 9999!important;
+}
+
+.modal-header{
+  background: #1b1e24!important;
+  height: 47px!important;
+}
+
+.modal-header .modal-title{
+    color: #fff!important;
+}
+
+.cerrar-modal, .cerrar-modal:hover{
+  background: #E04B4A!important;
+  border: 1px solid #E04B4A!important;
+  border-radius: 3px!important;
+  padding: 0!important;
+  text-align: center!important;
+  width: 80px!important;
+  color:#fff!important;
+}
+
+.modal-footer{
+  background: #fff!important;
+  border-color: #fff!important;
+}
+
+.close-modal{
+  background: #fff!important;
+    color: #1b1e24!important;
+    margin: 0!important;
+    padding: 1px 4px!important;
+    opacity: 1!important;
+    border-radius: 3px!important;
+    font-size: 15px!important;
+    margin-top: 5px!important;
+    margin-right: 7px!important;
+}
+
+.btn-export{
+  background: #1caf9a!important;
+    border-radius: 3px!important;
+    border-color: #1caf9a!important;
+}
+
+.btn-export:first-child{
+    margin-bottom: 10px!important
+}

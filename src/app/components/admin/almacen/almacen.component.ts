@@ -164,7 +164,7 @@ export class AlmacenComponent implements OnInit {
           this.pageNext = this.paginacion[0].pageNext;
           this.currentPage = this.paginacion[0].currentPage;
         } else {
-          this.exportdata(response.data.data);
+          this.confirmexportdata(response.data.data);
         }
         
       }, error => {
@@ -194,14 +194,38 @@ export class AlmacenComponent implements OnInit {
 
   }
 
-  exportdata(data){
+  getAll(token) {
+    this._almacenService.getAll(token).subscribe(
+      response => {
+        this._commonService.exportdata(response.data, ["Id", "Clave", "Nombre", "Estatus", "Fecha"], "Almacén_");
+      }, error => {
+        if (error.statusText == 'Unauthorized') {
+          this._commonService.token_expired();
+        } else {
+          console.log('Error 500');
+          console.log(<any>error);
+          this._commonService.msj('error', 'Erro interno del servidor'); 
+        }
+      }
+    );
 
+  }
 
+  exportdata(d){
+    if(d === 1){
+      this.getAll(this.token);
+    } else {
+      this.confirmexportdata(undefined);
+    }
+  }
+
+  
+
+  confirmexportdata(data){
     if(data === undefined){
       this.export = true;
-      this.getData(this.token, this.page = null, this.dataForm);
+      this.getData(this.token, this.page, this.dataForm);
     } else {
-
       this._commonService.exportdata(data, ["Id", "Clave", "Nombre", "Estatus", "Fecha"], "Almacén_");
       this.export = false;
     }

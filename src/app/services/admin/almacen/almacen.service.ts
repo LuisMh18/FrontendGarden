@@ -24,6 +24,11 @@ export class AlmacenService {
 
   }
 
+  getAll(token) {
+    return this._http.get(this.url+'admin/almacen/data?token='+token)
+                     .map(res => res.json());
+ }  
+
   delete(token, id){
     return this._http.delete(this.url+'admin/almacen/'+id+'?token='+token)
                        .map(res => res.json());
