@@ -57,7 +57,7 @@ export class AlmacenComponent implements OnInit {
     private formBuilder: FormBuilder
     
   ) {
-    this.titulo = 'Almacen';
+    this.titulo = 'Almacén';
     //this.productos = _commonService.getArticulos();
     
   }
@@ -215,6 +215,7 @@ export class AlmacenComponent implements OnInit {
   }
 
   exportdata(d){
+    console.log("hola");
     if(d === 1){
       this.getAll(this.token);
     } else {

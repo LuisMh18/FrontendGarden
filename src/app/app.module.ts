@@ -23,8 +23,9 @@ import {ConfirmationService} from 'primeng/api';
 import {DialogModule} from 'primeng/dialog';
 
 import { UiSwitchModule } from 'ngx-toggle-switch';
-
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { CategoriasComponent } from './components/admin/categorias/categorias.component';
+import { ComercializadorComponent } from './components/admin/comercializador/comercializador.component';
+import { ClienteComponent } from './components/admin/cliente/cliente.component';
 
 
 
@@ -36,7 +37,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     DashboardComponent,
     AgentesComponent,
     ClientesComponent,
-    AlmacenComponent
+    AlmacenComponent,
+    CategoriasComponent,
+    ComercializadorComponent,
+    ClienteComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,8 +52,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ConfirmDialogModule,
     DialogModule,
     ReactiveFormsModule,
-    UiSwitchModule,
-    ModalModule,
+    UiSwitchModule
   ],
   providers: [
     appRoutingProviders,

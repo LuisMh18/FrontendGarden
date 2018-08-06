@@ -544,3 +544,14 @@ p-footer button:last-child{
   margin-top: -16px;
 }
 
+
+
+/*---sidebar*/
+.page-sidebar{
+  background:#17191e;
+}
+
+
+.submenu-active{
+  background:#121418!important;
+}
