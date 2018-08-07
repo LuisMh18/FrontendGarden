@@ -12,6 +12,7 @@ import {ConfirmationService} from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
+
 //declare var jQuery:any;
 //declare var $:any;
 
@@ -24,7 +25,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AlmacenComponent implements OnInit {
 
   public titulo: string;
-  public user;
   public identity;
   public token;
   public data;
@@ -38,7 +38,6 @@ export class AlmacenComponent implements OnInit {
   public currentPage;
   public dataForm;
   public numberPage;
-  //public productos;
   public paginacion;
   public form: FormGroup;
   public statusForm;
@@ -58,8 +57,6 @@ export class AlmacenComponent implements OnInit {
     
   ) {
     this.titulo = 'Almacén';
-    //this.productos = _commonService.getArticulos();
-    
   }
 
   //dialog
@@ -215,7 +212,6 @@ export class AlmacenComponent implements OnInit {
   }
 
   exportdata(d){
-    console.log("hola");
     if(d === 1){
       this.getAll(this.token);
     } else {

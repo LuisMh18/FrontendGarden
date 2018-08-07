@@ -553,5 +553,6 @@ p-footer button:last-child{
 
 
 .submenu-active{
-  background:#121418!important;
+  background:#07080a!important;
+  color: #fff!important;
 }
