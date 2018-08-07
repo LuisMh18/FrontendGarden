@@ -157,22 +157,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let almacen of dataobjetc" class="task-item">
-                    <td>{{ almacen.id }}</td>
-                    <td>{{ almacen.clave }}</td>
-                    <td>{{ almacen.nombre }}</td>
+                  <tr *ngFor="let data of dataobjetc" class="task-item">
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.clave }}</td>
+                    <td>{{ data.nombre }}</td>
                     <td>
-                      <span *ngIf="almacen.estatus === 0" class="label label-warning">Inactivo</span>
-                      <span *ngIf="almacen.estatus === 1" class="label label-success">Activo</span>
+                      <span *ngIf="data.estatus === 0" class="label label-warning">Inactivo</span>
+                      <span *ngIf="data.estatus === 1" class="label label-success">Activo</span>
                     </td>
-                    <td>{{ almacen.created_at }}</td>
+                    <td>{{ data.created_at }}</td>
                     <td>
-                      <button class="btn btn-default btn-rounded btn-sm" (click)="edit(almacen.id)">
+                      <button class="btn btn-default btn-rounded btn-sm" (click)="edit(data.id)">
                         <span class="fa fa-pencil"></span>
                       </button>
                     </td>
                     <td>
-                      <button class="btn btn-danger btn-rounded btn-sm" (click)="delete(almacen.id, almacen.clave)">
+                      <button class="btn btn-danger btn-rounded btn-sm" (click)="delete(data.id, data.clave)">
                         <span class="fa fa-times"></span>
                       </button>
                     </td>

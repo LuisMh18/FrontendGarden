@@ -355,6 +355,7 @@ export class AlmacenComponent implements OnInit {
 
   //edit
   edit(id) {
+    this.form.reset();
     this.display = true; 
     this.titleForm = "Editar Almacén";;
     this.btnForm = "Actualizar";
