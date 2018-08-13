@@ -16,6 +16,7 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { AgentesComponent } from './components/agentes/agentes.component';
 import { ClientesComponent } from './components/front/clientes/clientes.component';
 import { AlmacenComponent } from './components/admin/almacen/almacen.component';
+import { CategoriasComponent } from './components/admin/categorias/categorias.component';
 
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
@@ -23,7 +24,6 @@ import {ConfirmationService} from 'primeng/api';
 import {DialogModule} from 'primeng/dialog';
 
 import { UiSwitchModule } from 'ngx-toggle-switch';
-import { CategoriasComponent } from './components/admin/categorias/categorias.component';
 import { ComercializadorComponent } from './components/admin/comercializador/comercializador.component';
 import { ClienteComponent } from './components/admin/cliente/cliente.component';
 
@@ -38,9 +38,9 @@ import { ClienteComponent } from './components/admin/cliente/cliente.component';
     AgentesComponent,
     ClientesComponent,
     AlmacenComponent,
-    CategoriasComponent,
     ComercializadorComponent,
     ClienteComponent,
+    CategoriasComponent,
   ],
   imports: [
     BrowserModule,

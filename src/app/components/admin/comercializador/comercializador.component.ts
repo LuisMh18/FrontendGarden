@@ -209,7 +209,7 @@ export class ComercializadorComponent implements OnInit {
    //Eliminar
    delete(id, data){
      this.confirmationService.confirm({
-       message: '¿Estás seguro de eliminar el comercializador ' +data+' ?',
+       message: '¿Seguro de eliminar el comercializador ' +data+' ?',
        header: 'Eliminar Almacén',
        icon: 'pi pi-info-circle',
        accept: () => {

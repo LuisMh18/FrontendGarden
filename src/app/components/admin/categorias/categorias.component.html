@@ -1,3 +1,233 @@
-<p>
-  {{ titulo }}
-</p>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb push-down-0">
+  <li>
+    <a [routerLink]="['/admin']">Admin</a>
+  </li>
+  <li>
+    <a [routerLink]="['/categorias']">Catalogos</a>
+  </li>
+  <li class="active">{{titulo}}</li>
+</ul>
+<!-- END BREADCRUMB -->
+
+<!-- PAGE TITLE -->
+<div class="page-title">
+  <h2>
+    <span class="fa fa-arrow-circle-o-left"></span> {{ titulo }}</h2>
+</div>
+<!-- END PAGE TITLE -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-export-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-file-excel"></i> Exportar CSV</h5>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-export-data">
+          <button class="btn btn-primary btn-block btn-export" data-dismiss="modal" (click)="exportdata(1)">Exportar Todo</button>
+          <button class="btn btn-primary btn-block btn-export" data-dismiss="modal" (click)="exportdata(0)">Exportar Filtro</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary cerrar-modal" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<p-dialog header="{{titleForm}}" [(visible)]="display" [modal]="true" [responsive]="true" [minY]="70" styleClass="responsive-modal">
+
+  <form #updateForm="ngForm" [formGroup]="form" (ngSubmit)="submit(form.value, btnForm)" >
+
+    <div [ngClass]="(form.controls.categoria.errors && form.controls.categoria.touched)?'form-group has-feedback has-error' :'form-group ' ">
+      <label class="control-label">Categoría:</label>
+      <input type="text" class="form-control" name="categoria" formControlName="categoria" [(ngModel)]="categorias.categoria" required>
+      <span [ngClass]="(form.controls.categoria.errors && form.controls.categoria.touched)?'glyphicon glyphicon-remove form-control-feedback' :'' "></span>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">Estatus:</label>
+      <ui-switch [checked]="(statusForm)" color="#1b1e24" (change)="changeStatusForm(statusForm)"></ui-switch>
+    </div>
+
+    <p-footer>
+      <button type="submit" pButton icon="pi pi-check" label="{{btnForm}}"></button>
+      <button type="button" pButton icon="pi pi-times" (click)="display=false" label="Cancelar"></button>
+    </p-footer>
+  </form>
+
+</p-dialog>
+
+
+<p-confirmDialog></p-confirmDialog>
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+  <!-- START RESPONSIVE TABLES -->
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="panel panel-default "><!-- panel-refreshing -->
+
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-12 col-sm-10 col-lg-8">
+              <form #searchForm="ngForm" (ngSubmit)="onSearch()" class="search-data">
+                <div>
+                  <input type="text" class="form-control" name="search" #search="ngModel" [(ngModel)]="dataForm.search" placeholder="Buscar..."/>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                      Orden
+                    </span>
+                  <select class="form-control" name="order" #order="ngModel" [(ngModel)]="dataForm.order">
+                    <option value="desc">Descendente</option>
+                    <option value="asc">Ascendente</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                      Estatus
+                    </span>
+                  <select class="form-control" name="estatus" #estatus="ngModel" [(ngModel)]="dataForm.estatus">
+                    <option value="2">Todos</option>
+                    <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                  </select>
+                </div>
+                <div>
+                  <input type="submit" value="Buscar" class="btn btn-primary input-submit">
+                </div>
+              </form>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-lg-4">
+              <ul class="panel-controls">
+                <li>
+                  <button  class="button-panel-table" data-toggle="modal" data-target="#modal-export-data">
+                    <span class="fas fa-file-export"></span>
+                  </button>
+                </li>
+                <li>
+                  <button (click)="refresh()" class="button-panel-table">
+                    <span class="fa fa-refresh"></span>
+                  </button>
+                </li>
+                <li>
+                  <button (click)="showDialog()" class="button-panel-table">
+                    <span class="fa fa-plus"></span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <div class="panel-body panel-body-table">
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped table-actions">
+              <thead>
+              <tr>
+                <th width="50">Id</th>
+                <th width="100">Categoría</th>
+                <th width="50">Estatus</th>
+                <th width="50">Fecha</th>
+                <th width="50">Editar</th>
+                <th width="50">Eliminar</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of dataobjetc" class="task-item">
+                <td>{{ data.id }}</td>
+                <td>{{ data.categoria }}</td>
+                <td>
+                  <span *ngIf="data.estatus === 0" class="label label-warning">Inactivo</span>
+                  <span *ngIf="data.estatus === 1" class="label label-success">Activo</span>
+                </td>
+                <td>{{ data.created_at }}</td>
+                <td>
+                  <button class="btn btn-default btn-rounded btn-sm" (click)="edit(data.id)">
+                    <span class="fa fa-pencil"></span>
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-danger btn-rounded btn-sm" (click)="delete(data.id, data.categoria)">
+                    <span class="fa fa-times"></span>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel-footer panel-footer-pagination">
+          <div>
+            Mostrar
+            <select name="page" class="form-control" [(ngModel)]="numberPage" (change)="onChange()">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+              <option value="60">60</option>
+              <option value="70">70</option>
+              <option value="80">80</option>
+              <option value="90">90</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+            </select>
+            registros
+          </div>
+          <div class="dataTables_paginate" *ngIf="dataobjetc && dataobjetc.length >= 1">
+            <a class="paginate_button page-first-child" (click)="nPage(pageCurrent)">
+              Primero
+            </a>
+            <a class="paginate_button" (click)="nPage(pagePrev)">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+            <span *ngFor="let page of pages">
+
+                <a *ngIf="page == currentPage" class="paginate_button current" (click)="nPage(page)">{{ page}}</a>
+                <a *ngIf="page != currentPage" class="paginate_button" (click)="nPage(page)">{{ page }}</a>
+
+              </span>
+            <a class="paginate_button" (click)="nPage(pNext)">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+            <a class="paginate_button page-last-child" (click)="nPage(pageNext)">
+              Último
+            </a>
+          </div>
+        </div>
+
+        <div class="info-paginacion">
+          {{ infoPaginacion }}
+        </div>
+
+        <div class="panel-refresh-layer2 {{loader}}" ><img src="assets/img/loaders/default.gif"></div>
+
+
+      </div>
+
+    </div>
+  </div>
+  <!-- END RESPONSIVE TABLES -->
+
+</div>
+<!-- END PAGE CONTENT WRAPPER -->
