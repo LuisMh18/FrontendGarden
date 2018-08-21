@@ -27,7 +27,9 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
 import { ComercializadorComponent } from './components/admin/comercializador/comercializador.component';
 import { ClienteComponent } from './components/admin/cliente/cliente.component';
 
+import {DataViewModule} from 'primeng/dataview';
 
+import { DropdownModule, PanelModule } from 'primeng/primeng';
 
 
 @NgModule({
@@ -52,7 +54,10 @@ import { ClienteComponent } from './components/admin/cliente/cliente.component';
     ConfirmDialogModule,
     DialogModule,
     ReactiveFormsModule,
-    UiSwitchModule
+    UiSwitchModule,
+    DataViewModule,
+    DropdownModule,
+    PanelModule,
   ],
   providers: [
     appRoutingProviders,

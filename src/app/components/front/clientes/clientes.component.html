@@ -1,8 +1,101 @@
 <div *ngIf="identity.rol_id === 1">
 
-  <p>
-    {{ titulo }}
-  </p>
+	<br>
+	<hr>
+	<br>
+	<br>
+
+
+<div class="page-content-wrap">
+
+  <!-- START RESPONSIVE TABLES -->
+  <div class="row">
+
+
+    <p-dataView #dv [value]="dataobjetc" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
+    [sortField]="sortField" [sortOrder]="sortOrder">
+    <p-header>
+		 <div class="ui-helper-clearfix">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-4">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
+                </div>
+                <div class="ui-g-6 ui-md-4 filter-container">
+                    <div style="position:relative">
+                        <input class="form-control" type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)">
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-4" style="text-align:right">
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+            </div>
+        </div>
+    </p-header>
+    <ng-template let-data pTemplate="listItem">
+        <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+            <div class="ui-g-12 ui-md-3" style="text-align:center">
+                <img style="max-width: 150px; max-height: 150px; " src="http://apigarden.com/img/productos/{{ data.foto }}" alt="{{ data.nombre }}">
+            </div>
+            <div class="ui-g-12 ui-md-8 car-details">
+                <div class="ui-g">
+                    <div class="ui-g-2 ui-sm-6">Vin: </div>
+                    <div class="ui-g-10 ui-sm-6"><b>{{data.id}}</b></div>
+
+                    <div class="ui-g-2 ui-sm-6">Year: </div>
+                    <div class="ui-g-10 ui-sm-6"><b>{{data.nombre}}</b></div>
+
+                    <div class="ui-g-2 ui-sm-6">Brand: </div>
+                    <div class="ui-g-10 ui-sm-6"><b>{{data.color}}</b></div>
+
+                    <div class="ui-g-2 ui-sm-6">Color: </div>
+                    <div class="ui-g-10 ui-sm-6"><b>{{data.color}}</b></div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-1 search-icon">
+                <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, data)"></button>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template let-data pTemplate="gridItem">
+        <div style="padding:.5em" class="ui-g-12 ui-md-3">
+            <p-panel [header]="data.nombre" [style]="{'text-align':'center'}">
+                <img src="http://apigarden.com/img/productos/{{ data.foto }}" alt="{{ data.nombre }}" width="60">
+                <div class="car-detail">{{data.clave}} - {{data.color}}</div>
+                <hr class="ui-widget-content" style="border-top:0">
+                <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"></button>
+            </p-panel>
+        </div>
+    </ng-template>
+</p-dataView>
+
+<p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
+    <div class="ui-g" *ngIf="selectedCar">
+        <div class="ui-g-12" style="text-align:center">
+            <img src="http://apigarden.com/img/productos/{{ selectedCar.foto }}" alt="{{ selectedCar.nombre }}">
+        </div>
+        <div class="ui-g-4">Vin: </div>
+        <div class="ui-g-8">{{selectedCar.nombre}}</div>
+
+        <div class="ui-g-4">Brand: </div>
+        <div class="ui-g-8">{{selectedCar.clave}}</div>
+
+        <div class="ui-g-4">Year: </div>
+        <div class="ui-g-8">{{selectedCar.color}}</div>
+
+        <div class="ui-g-4">Color: </div>
+        <div class="ui-g-8">{{selectedCar.precio}}</div>
+    </div>
+</p-dialog>
+
+
+
+
+
+</div>
+
+</div>
+
+
 
 </div>
 

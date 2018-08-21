@@ -355,9 +355,9 @@ export class CategoriasComponent implements OnInit {
   update(formValue){
 
     this.categorias = {
-      id:this.categorias.id,,
+      id:this.categorias.id,
       categoria:formValue.categoria,
-      estatus:(this.statusForm === true) ? 1 : 0,
+      estatus:(this.statusForm === true) ? 1 : 0
     }
 
     this.validate();
