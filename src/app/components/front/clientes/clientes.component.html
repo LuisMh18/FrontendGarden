@@ -1,101 +1,306 @@
-<div *ngIf="identity.rol_id === 1">
 
-	<br>
-	<hr>
-	<br>
-	<br>
-
-
+<!-- PAGE CONTENT WRAPPER -->
 <div class="page-content-wrap">
 
-  <!-- START RESPONSIVE TABLES -->
-  <div class="row">
+    <!-- START RESPONSIVE TABLES -->
+    <div class="row">
 
-
-    <p-dataView #dv [value]="dataobjetc" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
-    [sortField]="sortField" [sortOrder]="sortOrder">
-    <p-header>
-		 <div class="ui-helper-clearfix">
-            <div class="ui-g">
-                <div class="ui-g-12 ui-md-4">
-                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
-                </div>
-                <div class="ui-g-6 ui-md-4 filter-container">
-                    <div style="position:relative">
-                        <input class="form-control" type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)">
+        <!-- START X-NAVIGATION VERTICAL -->
+        <ul class="x-navigation x-navigation-client x-navigation-horizontal x-navigation-panel" style="display: block!important;">
+        
+                
+                <p-dropdown [options]="sortOptions" [(ngModel)]="selectCategoria" (onChange)="onChange()" placeholder="Categorías" [autoWidth]="false" [style]="{'width':'15em', 'float': 'left', 'margin': '13px 20px'}"></p-dropdown>
+            
+            <!-- END TOGGLE NAVIGATION -->
+                
+            <!-- SEARCH -->
+            <li class="xn-search">
+                <!--(keyup.enter)="onSearch()"  para cuando des enter-->
+                <form role="form" #searchForm="ngForm" (keyup)="onSearch()" >
+                    <input type="text" name="search" [(ngModel)]="dataForm.search" placeholder="Clave del producto..." style='width:160px!important;' />
+                </form>
+            </li>
+            <!-- END SEARCH -->
+            <!-- SIGN OUT -->
+            <li class="xn-icon-button pull-right">
+                <a style="cursor:pointer;" class="mb-control" data-box="#mb-signout">
+                    <span class="fa fa-sign-out"></span>
+                </a>
+            </li>
+            <!-- END SIGN OUT -->
+            <!-- MESSAGES -->
+            <li class="xn-icon-button pull-right">
+                <a href="#">
+                    <span class="fa fa-comments"></span>
+                </a>
+                <div class="informer informer-danger">4</div>
+                <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span class="fa fa-comments"></span> Messages</h3>
+                        <div class="pull-right">
+                            <span class="label label-danger">4 new</span>
+                        </div>
+                    </div>
+                    <div class="panel-body list-group list-group-contacts scroll" style="height: 200px;">
+                        <a href="#" class="list-group-item">
+                            <div class="list-group-status status-online"></div>
+                            <img src="assets/img/users/user2.jpg" class="pull-left" alt="John Doe" />
+                            <span class="contacts-title">John Doe</span>
+                            <p>Praesent placerat tellus id augue condimentum</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <div class="list-group-status status-away"></div>
+                            <img src="assets/img/users/user.jpg" class="pull-left" alt="Dmitry Ivaniuk" />
+                            <span class="contacts-title">Dmitry Ivaniuk</span>
+                            <p>Donec risus sapien, sagittis et magna quis</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <div class="list-group-status status-away"></div>
+                            <img src="assets/img/users/user3.jpg" class="pull-left" alt="Nadia Ali" />
+                            <span class="contacts-title">Nadia Ali</span>
+                            <p>Mauris vel eros ut nunc rhoncus cursus sed</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <div class="list-group-status status-offline"></div>
+                            <img src="assets/img/users/user6.jpg" class="pull-left" alt="Darth Vader" />
+                            <span class="contacts-title">Darth Vader</span>
+                            <p>I want my money back!</p>
+                        </a>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <a href="pages-messages.html">Show all messages</a>
                     </div>
                 </div>
-                <div class="ui-g-6 ui-md-4" style="text-align:right">
-                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </li>
+            <!-- END MESSAGES -->
+            <!-- TASKS -->
+            <li class="xn-icon-button pull-right">
+                <a href="#">
+                    <span class="fa fa-tasks"></span>
+                </a>
+                <div class="informer informer-warning">3</div>
+                <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span class="fa fa-tasks"></span> Tasks</h3>
+                        <div class="pull-right">
+                            <span class="label label-warning">3 active</span>
+                        </div>
+                    </div>
+                    <div class="panel-body list-group scroll" style="height: 200px;">
+                        <a class="list-group-item" href="#">
+                            <strong>Phasellus augue arcu, elementum</strong>
+                            <div class="progress progress-small progress-striped active">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 50%;">50%</div>
+                            </div>
+                            <small class="text-muted">John Doe, 25 Sep 2014 / 50%</small>
+                        </a>
+                        <a class="list-group-item" href="#">
+                            <strong>Aenean ac cursus</strong>
+                            <div class="progress progress-small progress-striped active">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 80%;">80%</div>
+                            </div>
+                            <small class="text-muted">Dmitry Ivaniuk, 24 Sep 2014 / 80%</small>
+                        </a>
+                        <a class="list-group-item" href="#">
+                            <strong>Lorem ipsum dolor</strong>
+                            <div class="progress progress-small progress-striped active">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 95%;">95%</div>
+                            </div>
+                            <small class="text-muted">John Doe, 23 Sep 2014 / 95%</small>
+                        </a>
+                        <a class="list-group-item" href="#">
+                            <strong>Cras suscipit ac quam at tincidunt.</strong>
+                            <div class="progress progress-small">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
+                            </div>
+                            <small class="text-muted">John Doe, 21 Sep 2014 /</small>
+                            <small class="text-success"> Done</small>
+                        </a>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <a href="pages-tasks.html">Show all tasks</a>
+                    </div>
+                </div>
+            </li>
+            <!-- END TASKS -->
+        </ul>
+       <!-- END X-NAVIGATION VERTICAL -->
+
+<div class="panel panel-default tabs">                            
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#tab-products" role="tab" data-toggle="tab">Productos <i class="fas fa-clipboard-list"></i></a></li>
+            <li style="position:relative;">
+                <a href="#tab-cart" role="tab" data-toggle="tab">
+                    Mi carrito 
+                    <i class="fas fa-cart-plus"></i>
+                    <ul class="x-navigation">
+                        <div style="top: -1px; right: -2px;" class="informer informer-danger">{{ numberCart }}</div>
+                    </ul>
+                </a>
+            </li>
+        </ul>                            
+        <div class="panel-body tab-content" style="padding:0!important;">
+            <div class="tab-pane active" id="tab-products">
+                    <div class="panel panel-default " style="border-top-width: 0!important;margin-bottom: 0!important;"><!-- panel-refreshing -->
+
+                        <div class="panel-body d-flex flex-wrap justify-content-center">
+
+                        <h2 style="margin-bottom: 0!important;"><small>{{ infoProducts }}</small></h2>
+                        <div class="panel panel-success push-up-20 panel-products" *ngFor="let data of dataobjetc">
+                                <div class="panel-body panel-body-pricing text-center" (click)="showProduct(data)" style="cursor:pointer;">
+                                    <h2>{{data.clave}}<br/></h2>     
+                                    <div class="content-image-product d-flex justify-content-center align-items-center">
+                                            <img src="http://apigarden.com/img/productos/{{ data.foto }}" alt="{{ data.nombre }}">
+                                    </div>                           
+                                    <p><span class="fa fa-caret-right"></span>{{data.nombre}}</p>
+                                    <h2><small>Disponibles: {{data.cantidad}}</small></h2>
+                                    <!--  <p class="text-muted">For individuals</p>-->
+                                </div>
+                                <div class="panel-footer text-center">         
+                                    <h2><small>{{data.precio | currency}}</small></h2>
+                                    <input type="number" class="form-control" placeholder="Cantidad">                        
+                                    <button class="btn btn-success btn-block">Añadir al carrito</button>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="panel-footer d-flex justify-content-center">
+                                <div class="dataTables_paginate" *ngIf="dataobjetc && dataobjetc.length >= 1">
+                                    <a class="paginate_button page-first-child" (click)="nPage(pageCurrent)">
+                                        Primero
+                                    </a>
+                                    <a class="paginate_button" (click)="nPage(pagePrev)">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    <span *ngFor="let page of pages">
+                        
+                                        <a *ngIf="page == currentPage" class="paginate_button current" (click)="nPage(page)">{{ page}}</a>
+                                        <a *ngIf="page != currentPage" class="paginate_button" (click)="nPage(page)">{{ page }}</a>
+                        
+                                        </span>
+                                    <a class="paginate_button" (click)="nPage(pNext)">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    <a class="paginate_button page-last-child" (click)="nPage(pageNext)">
+                                        Último
+                                    </a>
+                                </div>
+                        </div>
+                
+                        <div class="info-paginacion"></div>
+                
+                        <div class="panel-refresh-layer2 {{loader}}" ><img src="assets/img/loaders/default.gif"></div>
+                
+                
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="tab-cart">
+                        <div class="panel panel-default " style="border-top-width: 0!important;margin-bottom: 0!important;"><!-- panel-refreshing -->
+
+                            <div class="panel-heading">
+                    
+                            </div>
+                    
+                            <div class="panel-body panel-body-table">
+
+
+                                    <div class="panel-body d-flex flex-wrap justify-content-center">
+                                      <div class="panel">
+                                          <div class="panel-heading">
+                                              <span><i class="fas fa-shopping-cart"></i> Pedido</span>
+                                                <button (click)="showDialog()" class="button-panel-table" style="float:right;" title="Vaciar Pedido">
+                                                        <span class="fas fa-trash-alt"></span>
+                                                </button>
+                                          </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped table-actions">
+                                                        <thead>
+                                                        <tr>
+                                                        <th width="50">Clave</th>
+                                                        <th width="100">Nombre</th>
+                                                        <th width="50">Color</th>
+                                                        <th width="50">Precio</th>
+                                                        <th width="50">Iva</th>
+                                                        <th width="50">Cantidad</th>
+                                                        <th width="50">Foto</th>
+                                                        <th width="50">Total producto</th>
+                                                        <th width="50">Quitar</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr class="task-item">
+                                                        <td>Clave</td>
+                                                        <td>Nombre</td>
+                                                        <td>Color</td>
+                                                        <td>Precio</td>
+                                                        <td>Iva</td>
+                                                        <td>Cantidad</td>
+                                                        <td>Foto</td>
+                                                        <td>Total</td>
+                                                        <td>
+                                                            <button class="btn btn-danger btn-rounded btn-sm" (click)="delete(data.id, data.categoria)">
+                                                            <span class="fa fa-times"></span>
+                                                            </button>
+                                                        </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer text-center">         
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                              
+                            </div>
+                    
+                            <div class="panel-refresh-layer2 {{loader}}" ><img src="assets/img/loaders/default.gif"></div>
+                    
+                    
+                          </div>
                 </div>
             </div>
-        </div>
-    </p-header>
-    <ng-template let-data pTemplate="listItem">
-        <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
-            <div class="ui-g-12 ui-md-3" style="text-align:center">
-                <img style="max-width: 150px; max-height: 150px; " src="http://apigarden.com/img/productos/{{ data.foto }}" alt="{{ data.nombre }}">
-            </div>
-            <div class="ui-g-12 ui-md-8 car-details">
-                <div class="ui-g">
-                    <div class="ui-g-2 ui-sm-6">Vin: </div>
-                    <div class="ui-g-10 ui-sm-6"><b>{{data.id}}</b></div>
+        </div>  
+        
+        <footer class="text-center w-100" style="padding:0 0 10px 0;">
+                <small>© Copyright: Todos los derechos reservados. Garden Central. <b>Términos y condiciones.</b></small>
+        </footer>
 
-                    <div class="ui-g-2 ui-sm-6">Year: </div>
-                    <div class="ui-g-10 ui-sm-6"><b>{{data.nombre}}</b></div>
 
-                    <div class="ui-g-2 ui-sm-6">Brand: </div>
-                    <div class="ui-g-10 ui-sm-6"><b>{{data.color}}</b></div>
+                    <p-dialog *ngIf="selectedProduct" header="{{selectedProduct.clave}}" [(visible)]="display" [modal]="true" [responsive]="true" [minY]="70" styleClass="responsive-modal">
+                            <div class="row text-center">
+                                <div class="col-12">
+                                        <img src="http://apigarden.com/img/productos/{{ selectedProduct.foto }}" alt="{{ selectedProduct.nombre }}">
+                                </div>
+                            </div>
+                            <hr>
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <p><b>Clave: {{selectedProduct.clave}}</b></p>
+                                <p><b>Nombre: {{selectedProduct.nombre}}</b></p>
+                                <p><b>Color: {{selectedProduct.color}}</b></p>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <p><b>Disponibles: {{selectedProduct.cantidad}}</b></p>
+                                <p><b>Precio: {{selectedProduct.precio | currency}}</b></p>
+                                <p *ngIf="selectedProduct.iva0 === 1"><b>Iva: 16%</b></p>
+                                <p *ngIf="selectedProduct.iva0 === 0"><b>Iva: 0%</b></p>
+                            </div>
+                        </div>
+                          
+                    </p-dialog>
 
-                    <div class="ui-g-2 ui-sm-6">Color: </div>
-                    <div class="ui-g-10 ui-sm-6"><b>{{data.color}}</b></div>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-1 search-icon">
-                <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, data)"></button>
-            </div>
-        </div>
-    </ng-template>
-    <ng-template let-data pTemplate="gridItem">
-        <div style="padding:.5em" class="ui-g-12 ui-md-3">
-            <p-panel [header]="data.nombre" [style]="{'text-align':'center'}">
-                <img src="http://apigarden.com/img/productos/{{ data.foto }}" alt="{{ data.nombre }}" width="60">
-                <div class="car-detail">{{data.clave}} - {{data.color}}</div>
-                <hr class="ui-widget-content" style="border-top:0">
-                <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"></button>
-            </p-panel>
-        </div>
-    </ng-template>
-</p-dataView>
-
-<p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
-    <div class="ui-g" *ngIf="selectedCar">
-        <div class="ui-g-12" style="text-align:center">
-            <img src="http://apigarden.com/img/productos/{{ selectedCar.foto }}" alt="{{ selectedCar.nombre }}">
-        </div>
-        <div class="ui-g-4">Vin: </div>
-        <div class="ui-g-8">{{selectedCar.nombre}}</div>
-
-        <div class="ui-g-4">Brand: </div>
-        <div class="ui-g-8">{{selectedCar.clave}}</div>
-
-        <div class="ui-g-4">Year: </div>
-        <div class="ui-g-8">{{selectedCar.color}}</div>
-
-        <div class="ui-g-4">Color: </div>
-        <div class="ui-g-8">{{selectedCar.precio}}</div>
+        
     </div>
-</p-dialog>
-
-
-
-
-
+      
 </div>
-
-</div>
-
-
-
-</div>
+<!-- END PAGE CONTENT WRAPPER -->
 

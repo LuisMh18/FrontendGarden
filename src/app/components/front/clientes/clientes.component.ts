@@ -8,7 +8,8 @@ import { CommonService } from '../../../services/common/common.service';
 //confirm
 import {ConfirmationService} from 'primeng/api';
 //forms
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-clientes',
@@ -31,19 +32,21 @@ export class ClientesComponent implements OnInit {
   public pagePrev;
   public currentPage;
   public dataForm;
-  public numberPage;
+  public selectCategoria = '0';
   public paginacion;
   public form: FormGroup;
   public statusForm;
   public titleForm;
   public btnForm;
   public productos;
-  public infoPaginacion;
+  //public infoPaginacion;
   public export;
   public loader;
+  public infoProducts;
   //dataView
-  public selectedCar;
+  public selectedProduct;
   public sortOptions = [];//opciones del select categorias
+  public numberCart = 0;//numero de compras que tenemos en el carrito
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -58,15 +61,11 @@ export class ClientesComponent implements OnInit {
   //dialog
   display: boolean = false;
 
-  displayDialog: boolean;
-
- 
-
   ngOnInit() {
     console.log('Componente de clientes cargado');
     this.identity = JSON.parse(localStorage.getItem('identity'));
     this.token = localStorage.getItem('token');
-    console.log(this.identity);
+    //console.log(this.identity);
     if (this.identity.rol_id === 2) {
       this._router.navigate(['agentes']);
     } else if(this.identity.rol_id === 3) {
@@ -74,15 +73,15 @@ export class ClientesComponent implements OnInit {
     }
 
     this.page = null;//para el numero de pagina de la paginacion
-    this.numberPage = 10; //select para seleccionar el numero de registros de ver por pagina 
+    this.loader = '';
 
     this.dataForm = {
       search: "",
-      per_page: this.numberPage,
-      categoria_id:"0"
+      categoria_id:this.selectCategoria
     }
   
     this.getProductos();
+    this.getCategories(this.token);
   }
 
 
@@ -93,23 +92,49 @@ export class ClientesComponent implements OnInit {
    }
 
 
+   nPage(page) {
+    if (page != 'null') {
+      this.page = page;
+      this.loader = '';
+      this.getData(this.token, page, this.dataForm);
+    }
+
+  }
+
+  //search
+  onSearch() {
+    //this.loader = '';
+    console.log(this.dataForm);
+    this.getData(this.token, this.page = null, this.dataForm);
+  }
+
+  //Cambiar de categoria
+  onChange() {
+    this.dataForm.categoria_id = this.selectCategoria;
+    this.getData(this.token, this.page, this.dataForm);
+  }
+
+
      getData(token, page, data) {
        console.log(data);
       this._clientesService.getData(token, page, data).subscribe(
         response => {
             this.dataobjetc = response.data.data;
-            console.log(this.dataobjetc);
-            /*this.infoPaginacion = `Mostrando registros del ${response.data.from} al ${response.data.to} de un total de ${response.data.total} registros`;
-            this.paginacion = this._commonService.paginacion(response);
-            this.pages = this.paginacion[0].pages;
-            this.pageCurrent = this.paginacion[0].pageCurrent;
-            this.pagePrev = this.paginacion[0].pagePrev;
-            this.pNext = this.paginacion[0].pNext;
-            this.pageNext = this.paginacion[0].pageNext;
-            this.currentPage = this.paginacion[0].currentPage;
-            this.loader = 'hidden';*/
-
-            this.getCategories(token);
+            console.log(this.dataobjetc.length);
+            if(this.dataobjetc.length === 0){
+              this.infoProducts = "No se encontraron productos";
+            } else {
+              this.infoProducts = "";
+              //this.infoPaginacion = `Mostrando registros del ${response.data.from} al ${response.data.to} de un total de ${response.data.total} registros`;
+              this.paginacion = this._commonService.paginacion(response);
+              this.pages = this.paginacion[0].pages;
+              this.pageCurrent = this.paginacion[0].pageCurrent;
+              this.pagePrev = this.paginacion[0].pagePrev;
+              this.pNext = this.paginacion[0].pNext;
+              this.pageNext = this.paginacion[0].pageNext;
+              this.currentPage = this.paginacion[0].currentPage;
+              this.loader = 'hidden';
+            }
           
         }, error => {
           if (error.statusText == 'Unauthorized') {
@@ -129,9 +154,12 @@ export class ClientesComponent implements OnInit {
    getCategories(token) {
     this._clientesService.getCategories(token).subscribe(
       response => {
+        this.sortOptions.push({label: "Todo", value: "0"});
           for (let categoria of response.data) {
             this.sortOptions.push({label: categoria.categoria, value: categoria.id});
           }
+
+         // console.log(this.sortOptions);
 
       }, error => {
         if (error.statusText == 'Unauthorized') {
@@ -146,11 +174,11 @@ export class ClientesComponent implements OnInit {
 
   }
 
-    selectCar(event: Event, obj) {
-        this.selectedCar = obj;
+  showProduct(obj) {
+        this.selectedProduct = obj;
        console.log(obj);
-        this.displayDialog = true;
-        event.preventDefault();
+       console.log(this.selectedProduct.clave);
+       this.display = true;
     }
 
 

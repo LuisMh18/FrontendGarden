@@ -173,7 +173,7 @@
     <div  class="{{ nav_menu }}">
 
         <!-- START X-NAVIGATION VERTICAL -->
-        <ul *ngIf="token" class="x-navigation x-navigation-horizontal x-navigation-panel">
+        <ul *ngIf="token && identity.rol_id !== 1" class="x-navigation x-navigation-horizontal x-navigation-panel">
                 <!-- TOGGLE NAVIGATION -->
                 <li class="xn-icon-button">
                     <a href="#" class="x-navigation-minimize">
@@ -184,7 +184,7 @@
                 <!-- SEARCH -->
                 <li class="xn-search">
                     <form role="form">
-                        <input type="text" name="search" placeholder="Search..." />
+                        <input type="text" name="search" placeholder="Buscar..." />
                     </form>
                 </li>
                 <!-- END SEARCH -->
