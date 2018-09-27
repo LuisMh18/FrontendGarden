@@ -44,19 +44,19 @@
 
 
 
-<p-dialog header="{{titleForm}}" [(visible)]="display" [modal]="true" [responsive]="true" [minY]="70" styleClass="responsive-modal">
+<p-dialog header="{{titleForm}}" [(visible)]="display" [modal]="true" [responsive]="true" [minY]="70" styleClass="responsive-modal" [minY]="70" styleClass="responsive-modal" (click)="close($event)">
   
   <form #updateForm="ngForm" [formGroup]="form" (ngSubmit)="submit(form.value, btnForm)" >
     
-    <div [ngClass]="(form.controls.nombre.errors && form.controls.nombre.touched)?'form-group has-feedback has-error' :'form-group ' ">
+    <div id="nombre" class="form-group">
         <label class="control-label">Nombre:</label>
         <input type="text" class="form-control" name="nombre" formControlName="nombre" [(ngModel)]="comercializador.nombre" required>
-        <span [ngClass]="(form.controls.nombre.errors && form.controls.nombre.touched)?'glyphicon glyphicon-remove form-control-feedback' :'' "></span>
+        <span id="icon_nombre"></span>
     </div>   
     
     <p-footer>
         <button type="submit" pButton icon="pi pi-check" label="{{btnForm}}"></button>
-        <button type="button" pButton icon="pi pi-times" (click)="display=false" label="Cancelar"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="closeModal()" label="Cancelar"></button>
     </p-footer>
   </form>
 

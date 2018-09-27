@@ -270,6 +270,29 @@ export class CategoriasComponent implements OnInit {
     this.btnForm = "Agregar";
   }
 
+  close(event){
+    console.log(event.target);
+    if (event.target.className === "pi pi-times") {
+      this.clearForm();
+    } 
+}
+
+  closeModal(){
+    this.clearForm();
+    this.display = false;
+  }
+
+
+  //limpiamos los msjs de error oh de success
+  clearForm(){
+    for (const field in this.form.controls) { // 'field' is a string
+      let form_group = document.getElementById(field);
+      let form_icon = document.getElementById("icon_"+field); 
+      form_group.className = "form-group";
+      form_icon.className = "";
+    }
+  }
+
   changeStatusForm(status){
     this.statusForm = !status;
   }
@@ -308,6 +331,7 @@ export class CategoriasComponent implements OnInit {
           } else {
             this.display = false;
             this.form.reset();
+            this.clearForm();
             this.getCategoria();
             this.statusForm = false;
             this._commonService.msj('success', response.message);
@@ -378,6 +402,7 @@ export class CategoriasComponent implements OnInit {
           } else {
             this.display = false;
             this.form.reset();
+            this.clearForm();
             this.getCategoria();
             this.statusForm = false;
             this._commonService.msj('success', response.message);
@@ -395,16 +420,7 @@ export class CategoriasComponent implements OnInit {
   }
 
   validate(){
-    if(this.form.controls.categoria.status == 'INVALID'){
-      if(this.form.controls.categoria.errors.required){
-        this._commonService.msj('error', 'El campo Categoría es requerido.');
-      }
-
-      if(this.form.controls.clave.errors.minlength){
-        this._commonService.msj('error', 'El campo Categoría debe de tener al menos 3 caracteres.');
-      }
-    }
-
+    this._commonService.validateForm(this.form);
   }
 
 

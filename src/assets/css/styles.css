@@ -706,3 +706,9 @@ p-dataviewlayoutoptions div{
 .nav-tabs > li > a{
   margin:0!important;
 }
+
+
+/* stylos para las notificaciones z-index*/
+.simple-notification-wrapper {
+  z-index: 1004 !important;
+}

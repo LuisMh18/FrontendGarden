@@ -58,6 +58,7 @@ export class AlmacenComponent implements OnInit {
   display: boolean = false;
 
   ngOnInit() {
+
     console.log('Componente de almacen cargado');
     this.identity = JSON.parse(localStorage.getItem('identity'));
     this.token = localStorage.getItem('token');
@@ -112,6 +113,8 @@ export class AlmacenComponent implements OnInit {
       ],
 
     });
+
+   
 
     this.getAlmacen();
   }
@@ -283,12 +286,36 @@ export class AlmacenComponent implements OnInit {
   }
 
 
-  showDialog(){
+  showDialog(){ 
     this.form.reset();
     this.statusForm = false;
     this.display = true; 
     this.titleForm = "Agregar Almacén";
     this.btnForm = "Agregar";
+ 
+  }
+
+  close(event){
+    console.log(event.target);
+    if (event.target.className === "pi pi-times") {
+      this.clearForm();
+    } 
+}
+
+  closeModal(){
+    this.clearForm();
+    this.display = false;
+  }
+
+
+  //limpiamos los msjs de error oh de success
+  clearForm(){
+    for (const field in this.form.controls) { // 'field' is a string
+      let form_group = document.getElementById(field);
+      let form_icon = document.getElementById("icon_"+field); 
+      form_group.className = "form-group";
+      form_icon.className = "";
+    }
   }
 
   changeStatusForm(status){
@@ -315,7 +342,7 @@ export class AlmacenComponent implements OnInit {
     }
     
     this.validate();
-
+ 
     if(this.form.valid) {
       this._almacenService.add(this.token, this.almacen).subscribe(
         response => {
@@ -331,6 +358,7 @@ export class AlmacenComponent implements OnInit {
           } else {
               this.display = false; 
               this.form.reset();
+              this.clearForm();
               this.getAlmacen();
               this.statusForm = false;
               this._commonService.msj('success', response.message);
@@ -390,6 +418,7 @@ export class AlmacenComponent implements OnInit {
     if(this.form.valid) {
       this._almacenService.update(this.token, this.almacen).subscribe(
         response => {
+          
           if (response.error == 'validate') {
             let data = Object.values(response.errors);
             for (let err of data) {
@@ -404,6 +433,7 @@ export class AlmacenComponent implements OnInit {
           } else {
               this.display = false; 
               this.form.reset();
+              this.clearForm();
               this.getAlmacen();
               this.statusForm = false;
               this._commonService.msj('success', response.message);
@@ -414,32 +444,12 @@ export class AlmacenComponent implements OnInit {
         }
       );
 
-
-
     }
         
   }
 
   validate(){
-    if(this.form.controls.clave.status == 'INVALID'){
-      if(this.form.controls.clave.errors.required){
-        this._commonService.msj('error', 'El campo Clave es requerido.');
-      }
-
-      if(this.form.controls.clave.errors.minlength){
-        this._commonService.msj('error', 'El campo Clave debe de tener al menos 3 caracteres.');
-      }
-    }
-
-    if(this.form.controls.nombre.status == 'INVALID'){
-      if(this.form.controls.nombre.errors.required){
-        this._commonService.msj('error', 'El nombre Nombre es requerido.');
-      }
-
-      if(this.form.controls.nombre.errors.minlength){
-        this._commonService.msj('error', 'El campo Nombre debe de tener al menos 3 caracteres.');
-      }
-    }
+    this._commonService.validateForm(this.form);
   }
 
 

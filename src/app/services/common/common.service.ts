@@ -224,6 +224,35 @@ export class CommonService {
   }
 
 
+  validateForm(form){
+    for (const field in form.controls) { // 'field' is a string
+      console.log("field:" + field);
+      const control = form.get(field); // 'control' is a FormControl
+      console.log(form.get(field));//
+      console.log("control: "+control);
+      let form_group = document.getElementById(field);
+      let form_icon = document.getElementById("icon_"+field); 
+      if(control.status == 'INVALID'){
+
+        form_group.className = "form-group has-feedback has-error";
+        form_icon.className = "glyphicon glyphicon-remove form-control-feedback";
+
+        if(control.errors.required){
+          this.msj('error', `El campo ${field} es requerido.`);
+        }
+  
+        if(control.errors.minlength){
+          this.msj('error', `El campo ${field} debe de tener al menos 3 caracteres.`);
+        }
+      } else {
+        form_group.className = "form-group has-feedback has-success";
+        form_icon.className = "glyphicon glyphicon-ok form-control-feedback";
+      }
+
+    }
+  }
+
+
   getArticulos() {
     return [
       {
