@@ -25,6 +25,7 @@
     "@angular/router": "^5.2.0",
     "angular2-notifications": "^1.0.2",
     "angular5-csv": "^0.2.10",
+    "chart.js": "^2.7.2",
     "core-js": "^2.4.1",
     "ngx-bootstrap": "^3.0.1",
     "ngx-popover": "0.0.16",

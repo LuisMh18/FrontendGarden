@@ -7,6 +7,12 @@ import { HttpModule } from '@angular/http';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//calendario
+import {CalendarModule} from 'primeng/calendar';
+
+//chart
+import {ChartModule} from 'primeng/chart';
+
 //rutas
 import { routing, appRoutingProviders } from './app.routing';
 
@@ -60,6 +66,8 @@ import { DropdownModule} from 'primeng/primeng';
     UiSwitchModule,
     /*DataViewModule,*/
     DropdownModule,
+    CalendarModule,
+    ChartModule,
     /*PanelModule,*/
   ],
   providers: [

@@ -712,3 +712,27 @@ p-dataviewlayoutoptions div{
 .simple-notification-wrapper {
   z-index: 1004 !important;
 }
+
+/*tabas dasboard ----*/
+.panel-inventario div{
+  margin-top:10px;
+}
+.panel-inventario div .tab-pane{
+  flex-wrap: wrap;
+}
+
+/*
+.widget.widget-default {
+  max-width: 220px!important;
+}
+
+.div-info-pedidos{
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  padding-bottom: 30px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; 
+}*/

@@ -1,0 +1,3 @@
+.tab-content>.tab-pane.active {
+    display: flex!important;
+}
