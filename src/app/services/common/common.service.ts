@@ -244,6 +244,9 @@ export class CommonService {
         if(control.errors.minlength){
           this.msj('error', `El campo ${field} debe de tener al menos 3 caracteres.`);
         }
+        if(control.errors.email){
+          this.msj('error', `El formato del ${field} es inválido.`);
+        }
       } else {
         form_group.className = "form-group has-feedback has-success";
         form_icon.className = "glyphicon glyphicon-ok form-control-feedback";

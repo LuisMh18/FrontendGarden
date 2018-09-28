@@ -5,24 +5,26 @@
             <strong>Bienvenido</strong>, {{ titulo }}</div>
 
 
-        <form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
+        <form class="form-horizontal" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div id="form-group-email" class="form-group">
                 <div class="col-md-12">
                     <div class="input-group formUserName has-feedback">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span>
                         </span>
-                        <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email" required placeholder="Email">
+                        <input type="email" class="form-control" name="email" id="email" formControlName="email" [(ngModel)]="user.email" required placeholder="Email">
+                        <span id="icon_email"></span>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div id="form-group-password" class="form-group">
                 <div class="col-md-12">
                     <div class="input-group formPassword has-feedback">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-lock"></span>
                         </span>
-                        <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password" required placeholder="Contraseña">
+                        <input type="password" class="form-control" name="password" id="password" formControlName="password" [(ngModel)]="user.password" required placeholder="Contraseña">
+                        <span id="icon_password"></span>
                     </div>
                 </div>
             </div>
