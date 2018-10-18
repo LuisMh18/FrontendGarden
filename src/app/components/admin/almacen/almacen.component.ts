@@ -128,6 +128,7 @@ export class AlmacenComponent implements OnInit {
 
   nPage(page) {
     if (page != 'null') {
+      this.loader = '';
       this.page = page;
       this.getData(this.token, page, this.dataForm);
     }
@@ -136,11 +137,13 @@ export class AlmacenComponent implements OnInit {
 
   //search
   onSearch() {
+    this.loader = '';
     this.getData(this.token, this.page = null, this.dataForm);
   }
 
   //Mostrar numero de paginas
   onChange() {
+    this.loader = '';
     console.log(this.numberPage);
     this.dataForm.per_page = this.numberPage;
     this.getData(this.token, this.page, this.dataForm);

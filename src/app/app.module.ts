@@ -36,6 +36,7 @@ import { ClienteComponent } from './components/admin/cliente/cliente.component';
 /*import {DataViewModule} from 'primeng/dataview';*/
 
 import { DropdownModule} from 'primeng/primeng';
+import { UsuariosComponent } from './components/admin/usuarios/usuarios.component';
 
 /*import { PanelModule } from 'primeng/primeng';*/
 
@@ -52,6 +53,7 @@ import { DropdownModule} from 'primeng/primeng';
     ComercializadorComponent,
     ClienteComponent,
     CategoriasComponent,
+    UsuariosComponent,
   ],
   imports: [
     BrowserModule,

@@ -175,7 +175,7 @@ export class ClientesComponent implements OnInit {
   }
 
   showProduct(obj) {
-        this.selectedProduct = obj;
+       this.selectedProduct = obj;
        console.log(obj);
        console.log(this.selectedProduct.clave);
        this.display = true;

@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { AlmacenComponent } from './components/admin/almacen/almacen.component';
 import { CategoriasComponent } from './components/admin/categorias/categorias.component';
 import { ClienteComponent } from './components/admin/cliente/cliente.component'; //para el admin
+import { UsuariosComponent } from './components/admin/usuarios/usuarios.component';
 import { ComercializadorComponent } from './components/admin/comercializador/comercializador.component';
 import { AgentesComponent } from './components/agentes/agentes.component';
 import { ClientesComponent } from './components/front/clientes/clientes.component';//para el front
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'admin', component: DashboardComponent },
     { path: 'almacen', component: AlmacenComponent },
     { path: 'categorias', component: CategoriasComponent },
+    { path: 'usuarios', component: UsuariosComponent },
     { path: 'cliente', component: ClienteComponent },//para el admin
     { path: 'comercializador', component: ComercializadorComponent },
     { path: 'agentes', component: AgentesComponent },

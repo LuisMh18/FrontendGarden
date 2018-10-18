@@ -105,6 +105,7 @@ export class CategoriasComponent implements OnInit {
 
   nPage(page) {
     if (page != 'null') {
+      this.loader = '';
       this.page = page;
       this.getData(this.token, page, this.dataForm);
     }
@@ -113,11 +114,13 @@ export class CategoriasComponent implements OnInit {
 
   //search
   onSearch() {
+    this.loader = '';
     this.getData(this.token, this.page = null, this.dataForm);
   }
 
   //Mostrar numero de paginas
   onChange() {
+    this.loader = '';
     this.dataForm.per_page = this.numberPage;
     this.getData(this.token, this.page, this.dataForm);
   }
