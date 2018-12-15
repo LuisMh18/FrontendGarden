@@ -121,8 +121,6 @@ getData(token, page, data) {
   this._agentesService.getData(token, page, data).subscribe(
     response => {
       if(this.export === false){
-        console.log(response);
-
         let pedido = 0;
         let extras = 0;
         let _objects = response.data.data;

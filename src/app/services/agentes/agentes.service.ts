@@ -15,7 +15,6 @@ export class AgentesService {
     this.url = GLOBAL.url;
   }
 
-
   getData(token, page = null, dataform) {
     let params = JSON.stringify(dataform);
     let headers = new Headers({ 'Content-Type': 'application/json' });
