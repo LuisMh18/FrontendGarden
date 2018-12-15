@@ -1,5 +1,11 @@
-cliente: angel@live.com pass: del 1 al 8
+cliente: angel@live.com pass: del 1 al 8   - user : angelitomh
 
-agente: adri@hotmail.com  pass: del 1 al 8
+agente: adri@hotmail.com  pass: del 1 al 8   - user: Adriana
 
-admin: admin@outlook.es   pass:admin99
+admin: admin@outlook.es   pass:admin99    - user : administrador
+
+
+
+vzert estudio digital
+
+

@@ -1,3 +1,197 @@
-<p>
-  {{ titulo }}
-</p>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb push-down-0">
+  <li>
+    <a [routerLink]="['/admin']">Admin</a>
+  </li>
+  <li class="active">{{titulo}}</li>
+</ul>
+<!-- END BREADCRUMB -->  
+
+<!-- PAGE TITLE -->
+<div class="page-title">
+  <h2>
+    <span class="fa fa-arrow-circle-o-left"></span> {{ titulo }}</h2>
+</div>
+<!-- END PAGE TITLE -->
+<span style="visibility: hidden;">---</span>
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+<!-- START RESPONSIVE TABLES -->
+<div class="row">
+    <div class="col-md-12">
+
+      <div class="panel panel-default "><!-- panel-refreshing -->
+  
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-12 col-sm-10 col-lg-8">
+              <form #searchForm="ngForm" (ngSubmit)="onSearch()" class="search-data">
+                <div>
+                  <input type="text" class="form-control" name="search" #search="ngModel" [(ngModel)]="dataForm.search" placeholder="Buscar..."/>
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    Orden
+                  </span>
+                  <select class="form-control" name="order" #order="ngModel" [(ngModel)]="dataForm.order">
+                    <option value="desc">Descendente</option>
+                    <option value="asc">Ascendente</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    Estatus
+                  </span>
+                  <select class="form-control" name="estatus" #estatus="ngModel" [(ngModel)]="dataForm.estatus">
+                    <option value="4">Todos</option>
+                    <option value="0">Pendiente</option>
+                    <option value="1">Credito</option>
+                    <option value="2">Pagado</option>
+                    <option value="3">Cancelado</option>
+                  </select>
+                </div>
+                <div>
+                  <input type="submit" value="Buscar" class="btn btn-primary input-submit">
+                </div>
+              </form>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-lg-4">
+              <ul class="panel-controls">
+                <li>
+                  <button  class="button-panel-table" data-toggle="modal" data-target="#modal-export-data">
+                    <span class="fas fa-file-export"></span>
+                  </button>
+                </li>
+                <li>
+                  <button (click)="refresh()" class="button-panel-table">
+                       <span class="fa fa-refresh"></span>
+                  </button>
+                </li>
+                <li>
+                  <button (click)="showDialog()" class="button-panel-table">
+                    <span class="fa fa-plus"></span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          
+        
+        </div>
+  
+        <div class="panel-body panel-body-table">
+  
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped table-actions">
+              <thead>
+                <tr>
+                  <th width="50">N° Pedido</th>
+                  <th width="100">N° Cliente</th>
+                  <th width="100">Fecha de registro</th>
+                  <th width="50">Cliente</th>
+                  <th width="50">Razón social</th>
+                  <th width="50">Total pedido</th>
+                  <th width="50">Extras</th>
+                  <th width="50">Total más extras</th>
+                  <th width="50">Estatus</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of dataobjetc" class="task-item">
+                  <td><span style="cursor:pointer;" class="txt-info">{{ data.num_pedido }}</span></td>
+                  <td>{{ data.numero_cliente }}</td>
+                  <td>{{ data.created_at }}</td>
+                  <td>{{ data.nombre_cliente }} {{ data.paterno }}</td>
+                  <td>
+                      <span *ngIf="data.razon_social == ''">Sin razón social</span>
+                      <span *ngIf="data.razon_social !=''">{{ data.razon_social }}</span>
+                  </td>
+                  <td>{{ data.total | currency}}</td>
+                  <td>
+                      <span *ngIf="data.extra_pedido === 1">{{ data.extra_total | currency }}</span>
+                      <span *ngIf="data.extra_pedido !== 1">-------</span>
+                  </td>
+                  <td>{{ data.total + data.extra_total | currency }}</td>
+                  <td>
+                    <span *ngIf="data.estatus === 0" class="label label-info">Pendiente</span>
+                    <span *ngIf="data.estatus === 1" class="label label-primary">Credito</span>
+                    <span *ngIf="data.estatus === 2" class="label label-success">Pagado</span>
+                    <span *ngIf="data.estatus === 3" class="label label-danger">Cancelado</span>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                    <td style="border-right-color: transparent;"></td>
+                    <td style="border-right-color: transparent;"></td>
+                    <td style="border-right-color: transparent;"></td>
+                    <td style="border-right-color: transparent;"></td>
+                    <td style="border-right-color: transparent;"></td>
+                    <td style="border-right-color: transparent;" class="txt-info">Total Pedido: {{ totalPedido | currency }}</td>
+                    <td style="border-right-color: transparent;" class="txt-info">Total Extras: {{ totalExtras | currency }}</td>
+                    <td style="border-right-color: transparent;" class="txt-info">Gran Total: {{ granTotal | currency }}</td>
+                    <td style="border-right-color: transparent;"></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+  
+        <div class="panel-footer panel-footer-pagination">
+          <div>
+            Mostrar
+            <select name="page" class="form-control" [(ngModel)]="numberPage" (change)="onChange()">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+              <option value="60">60</option>
+              <option value="70">70</option>
+              <option value="80">80</option>
+              <option value="90">90</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+            </select>
+            registros
+          </div>
+          <div class="dataTables_paginate" *ngIf="dataobjetc && dataobjetc.length >= 1">
+            <a class="paginate_button page-first-child" (click)="nPage(pageCurrent)">
+              Primero
+            </a>
+            <a class="paginate_button" (click)="nPage(pagePrev)">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+            <span *ngFor="let page of pages">
+        
+              <a *ngIf="page == currentPage" class="paginate_button current" (click)="nPage(page)">{{ page}}</a>
+              <a *ngIf="page != currentPage" class="paginate_button" (click)="nPage(page)">{{ page }}</a>
+        
+            </span>
+            <a class="paginate_button" (click)="nPage(pNext)">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+            <a class="paginate_button page-last-child" (click)="nPage(pageNext)">
+              Último
+            </a>
+          </div>
+        </div>
+
+        <div class="info-paginacion">
+          {{ infoPaginacion }}
+        </div>
+
+        <div class="panel-refresh-layer2 {{loader}}" ><img src="assets/img/loaders/default.gif"></div>
+  
+        
+      </div>
+  
+    </div>
+</div>
+<!-- END RESPONSIVE TABLES -->
+
+</div>
+<!-- END PAGE CONTENT WRAPPER -->
