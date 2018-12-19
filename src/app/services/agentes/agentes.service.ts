@@ -25,4 +25,11 @@ export class AgentesService {
 
   }
 
+
+  getPedido(token, idpedido,idcliente) {
+    return this._http.get(this.url+`agentes/verPedido/${idpedido}/${idcliente}?token=${token}'`)
+                       .map(res => res.json());
+
+  }
+
 }

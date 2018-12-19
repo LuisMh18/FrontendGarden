@@ -9,6 +9,7 @@ import { ClienteComponent } from './components/admin/cliente/cliente.component';
 import { UsuariosComponent } from './components/admin/usuarios/usuarios.component';
 import { ComercializadorComponent } from './components/admin/comercializador/comercializador.component';
 import { AgentesComponent } from './components/agentes/agentes.component';
+import { DetallePedidoComponent } from './components/agentes/detalle-pedido/detalle-pedido.component';
 import { ClientesComponent } from './components/front/clientes/clientes.component';//para el front
 
 
@@ -22,10 +23,10 @@ const routes: Routes = [
     { path: 'cliente', component: ClienteComponent },//para el admin
     { path: 'comercializador', component: ComercializadorComponent },
     { path: 'agentes', component: AgentesComponent },
+    { path: 'agentes/:id_pedido/:id_cliente', component: DetallePedidoComponent}, 
     { path: 'clientes', component: ClientesComponent },//para el front
     { path: '**', component: LoginComponent }//cuando la ruta no exista nos muestra el login
 ];
-
 
 
 export const appRoutingProviders: any[] = [];

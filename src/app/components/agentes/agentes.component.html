@@ -1,7 +1,7 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb push-down-0">
   <li>
-    <a [routerLink]="['/admin']">Admin</a>
+    <a [routerLink]="['/agentes']">Agentes</a>
   </li>
   <li class="active">{{titulo}}</li>
 </ul>
@@ -14,6 +14,7 @@
 </div>
 <!-- END PAGE TITLE -->
 <span style="visibility: hidden;">---</span>
+
 <!-- PAGE CONTENT WRAPPER -->
 <div class="page-content-wrap">
 
@@ -95,11 +96,12 @@
                   <th width="50">Extras</th>
                   <th width="50">Total más extras</th>
                   <th width="50">Estatus</th>
+                  <th width="50">Ver Detalle</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of dataobjetc" class="task-item">
-                  <td><span style="cursor:pointer;" class="txt-info">{{ data.num_pedido }}</span></td>
+                  <td><span class="txt-info" >{{ data.num_pedido }}</span></td>
                   <td>{{ data.numero_cliente }}</td>
                   <td>{{ data.created_at }}</td>
                   <td>{{ data.nombre_cliente }} {{ data.paterno }}</td>
@@ -119,6 +121,7 @@
                     <span *ngIf="data.estatus === 2" class="label label-success">Pagado</span>
                     <span *ngIf="data.estatus === 3" class="label label-danger">Cancelado</span>
                   </td>
+                  <td class="txt-info"><span style="font-size: 25px;cursor:pointer;" [routerLink]="['/agentes', data.id, data.id_cliente]" class="fa fa-eye"></span></td>
                 </tr>
               </tbody>
               <tfoot>
@@ -131,6 +134,7 @@
                     <td style="border-right-color: transparent;" class="txt-info">Total Pedido: {{ totalPedido | currency }}</td>
                     <td style="border-right-color: transparent;" class="txt-info">Total Extras: {{ totalExtras | currency }}</td>
                     <td style="border-right-color: transparent;" class="txt-info">Gran Total: {{ granTotal | currency }}</td>
+                    <td style="border-right-color: transparent;"></td>
                     <td style="border-right-color: transparent;"></td>
                 </tr>
               </tfoot>

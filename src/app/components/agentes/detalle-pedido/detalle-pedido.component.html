@@ -1,0 +1,126 @@
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb push-down-0">
+  <li>
+    <a [routerLink]="['/agentes']">Agentes</a>
+  </li>
+  <li>
+    <a [routerLink]="['/agentes']">Lista de pedidos</a>
+  </li>
+  <li class="active">{{titulo}}</li>
+</ul>
+<!-- END BREADCRUMB -->  
+
+<!-- PAGE TITLE -->
+<div class="page-title">
+  <h2>
+    <span [routerLink]="['/agentes']" style="cursor: pointer;" title="Regresar" class="fa fa-arrow-circle-o-left"></span> {{ titulo }}</h2>
+</div>
+<!-- END PAGE TITLE -->
+<span style="visibility: hidden;">---</span>
+
+
+<p-dialog header="{{titleForm}}" [(visible)]="display" [modal]="true" [responsive]="true" [minY]="70" styleClass="responsive-modal">
+    
+  Aqui mostrare la información del pedido
+
+</p-dialog>
+
+
+<p-confirmDialog></p-confirmDialog>
+
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+<!-- START RESPONSIVE TABLES -->
+<div class="row">
+    <div class="col-md-12">
+
+      <div class="panel panel-default "><!-- panel-refreshing -->
+  
+        <div class="panel-heading">
+
+          
+
+        </div>
+  
+        <div class="panel-body panel-body-table">
+  
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped table-actions">
+              <thead>
+                <tr>
+                  <th width="50">Clave</th>
+                  <th width="100">Nombre</th>
+                  <th width="100">Color</th>
+                  <th width="50">Precio</th>
+                  <th width="50">Iva</th>
+                  <th width="50">Pedimento</th>
+                  <th width="50">Cantidad</th>
+                  <th width="50">Foto</th>
+                  <th width="50">Total producto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of productos" class="task-item">
+                  <td>{{ data.clave }}</td>
+                  <td>{{ data.nombre }}</td>
+                  <td>{{ data.color }}</td>
+                  <td>{{ data.precio | currency }}</td>
+                  <td>
+                      <span *ngIf="data.iva0 == 1">16%</span>
+                      <span *ngIf="data.iva0 != 1">16%</span>
+                  </td>
+                  <td>{{ data.num_pedimento }}</td>
+                  <td>{{ data.cantidad }}</td>
+                  <td class="txt-info"><span title="Ver foto" style="font-size: 25px;cursor:pointer;" (click)="verFoto(data.foto)" class="fa fa-eye"></span></td>
+                  <td>{{ data.cantidad * data.precio | currency}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+  
+        <div class="panel-footer">
+          <div class="table-responsive" style="width: 30%;float: right;">
+              <table class="table table-bordered table-striped">
+                  <tbody>
+                      <tr>
+                          <td class="txt-primary"><strong>Subtotal:</strong></td>
+                          <td><span class="label label-danger">700</span></td>
+                      </tr>
+                      <tr>
+                          <td class="txt-primary"><strong>Iva:</strong></td>
+                          <td><span class="label label-warning">120</span></td>
+                      </tr>                                                
+                      <tr>
+                          <td class="txt-primary"><strong>Total:</strong></td>
+                          <td><span class="label label-warning">980</span></td>
+                      </tr>
+                      <tr>
+                          <td class="txt-primary"><strong>Extras:</strong></td>
+                          <td><span class="label label-success">200</span></td>
+                      </tr>
+                      <tr>
+                          <td class="txt-primary"><strong>Gran Total:</strong></td>
+                          <td><span class="label label-success">1180</span></td>
+                      </tr>                                                
+                      
+                  </tbody>
+              </table>
+          </div>
+        </div>
+
+
+        <div class="panel-refresh-layer2 {{loader}}" ><img src="assets/img/loaders/default.gif"></div>
+  
+        
+      </div>
+  
+    </div>
+</div>
+<!-- END RESPONSIVE TABLES -->
+
+</div>
+<!-- END PAGE CONTENT WRAPPER -->

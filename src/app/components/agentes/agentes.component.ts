@@ -51,7 +51,7 @@ export class AgentesComponent implements OnInit {
     private formBuilder: FormBuilder
     
   ) {
-    this.titulo = 'Agentes';
+    this.titulo = 'Lista de pedidos';
   }
 
   //dialog
@@ -120,6 +120,7 @@ onChange() {
 getData(token, page, data) {
   this._agentesService.getData(token, page, data).subscribe(
     response => {
+      console.log(response);
       if(this.export === false){
         let pedido = 0;
         let extras = 0;
@@ -177,5 +178,7 @@ getData(token, page, data) {
     this.getPedidosAgente();
     
   }
+
+
 
 }//end export class
