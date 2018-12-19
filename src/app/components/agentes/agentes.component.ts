@@ -5,8 +5,6 @@ import { AgentesService } from '../../services/agentes/agentes.service';
 import { CommonService } from '../../services/common/common.service';
 //confirm
 import {ConfirmationService} from 'primeng/api';
-//forms
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-agentes',
@@ -31,10 +29,7 @@ export class AgentesComponent implements OnInit {
   public dataForm;
   public numberPage;
   public paginacion;
-  public form: FormGroup;
   public statusForm;
-  public titleForm;
-  public btnForm;
   public almacen;
   public infoPaginacion;
   public export;
@@ -48,7 +43,6 @@ export class AgentesComponent implements OnInit {
     private _agentesService: AgentesService,
     private _commonService: CommonService,
     private confirmationService: ConfirmationService,
-    private formBuilder: FormBuilder
     
   ) {
     this.titulo = 'Lista de pedidos';

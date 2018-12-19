@@ -38,6 +38,7 @@ import { ClienteComponent } from './components/admin/cliente/cliente.component';
 import { DropdownModule} from 'primeng/primeng';
 import { UsuariosComponent } from './components/admin/usuarios/usuarios.component';
 import { DetallePedidoComponent } from './components/agentes/detalle-pedido/detalle-pedido.component';
+import { InventarioComponent } from './components/admin/inventario/inventario.component';
 
 /*import { PanelModule } from 'primeng/primeng';*/
 
@@ -56,6 +57,7 @@ import { DetallePedidoComponent } from './components/agentes/detalle-pedido/deta
     CategoriasComponent,
     UsuariosComponent,
     DetallePedidoComponent,
+    InventarioComponent
   ],
   imports: [
     BrowserModule,
